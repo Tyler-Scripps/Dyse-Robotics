@@ -1,2 +1,2 @@
 # Dyse-Robotics
-Intro to Robotics Group
+Robotics/Mechatronics Group
