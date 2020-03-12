@@ -1,7 +1,7 @@
 import time
 import smbus
 import cv2 as cv
-import streamer
+#import streamer
 import numpy as np
 from picamera import PiCamera
 import matplotlib.pyplot as plt
@@ -9,7 +9,7 @@ from picamera.array import PiRGBArray
 from matplotlib.collections import LineCollection
 
 # this bound captures the noise in hsv
-# masked with the tape bounds eliminates 
+# masked with the tape bounds eliminates
 # almost all noise
 LOW_HSV = np.array([20,0,100])
 UPP_HSV = np.array([95,85,140])
@@ -22,6 +22,8 @@ U_HSV = np.array([95,150, 250])
 # default i2c address
 # must be the same on arduino
 i2c_add = 0x04
+# initialize the bus
+bus = smbus.SMBus(1)
 # enables the car to drive
 # set to 0 when target located
 drive_enabled = 1
@@ -29,6 +31,10 @@ drive_enabled = 1
 # drive_heading is infinite
 # i.e. dX is 0
 DIRECTIONAL_ERR = .5
+# framerate global
+FRAME_RATE = 30
+# resolution global
+RESOLUTION = (640, 480)
 
 
 # finds the hough lines in the canny image
@@ -66,7 +72,7 @@ def get_houghLines(edges):
 
 # draws the lines on the base image
 # also draws the lane heading
-def draw_lines(base_imag, lines):
+def draw_lines(base_image, lines):
 	indicator_length = 20
 	# combines the base and lines
 	base_image = cv.addWeighted(base_image, 0.8, lines[0], 1.0, 0.0)
@@ -79,7 +85,7 @@ def draw_lines(base_imag, lines):
 	return base_image
 
 
-# applies the base filters to perform 
+# applies the base filters to perform
 # image segmentation, canny and draws the hough lines
 # returns the processed image and lines data
 def process_image(base_image):
@@ -92,18 +98,17 @@ def process_image(base_image):
 	seg_img = cv.bitwise_and(blurred_hsv, blurred_hsv, mask=mask)
 	edges = cv.Canny(seg_img, 0, 500)
 	lines_data = get_houghLines(edges)
-	processed_img = draw_lines(base_img, lines_data)
+	processed_img = draw_lines(base_image, lines_data)
 	return [processed_img, lines_data]
-	
-	
+
+
 # converts lane headings into wheel speeds
 # wheel speeds are percentages and must be positive
-# talk to Mitch about vizualizing the 
+# talk to Mitch about vizualizing the
 # TODO: update equations to better direct the bot
 #		possibilities for this are using a neural net,
-#		this will improve the precision and eleminate 
+#		this will improve the precision and eleminate
 #		a lot of image processing
-#		
 def update_wheel_speeds(dX, dY, bus):
 	if np.abs(dX) < .5:
 		bus.write_i2c_block_data(i2c_add, drive_enabled, [100, 100, 1])
@@ -111,63 +116,72 @@ def update_wheel_speeds(dX, dY, bus):
 	dH = np.sqrt(dX**2 + dY**2)
 	# positive m
 	if direction > 0:
-		l_wheel = 1
+		l_wheel = 100
 		# heading offset more than 45 to the right
 		if direction < 1:
 			drive_state = 2
-			r_wheel = dX / dH
+			r_wheel = dX / dH * 100
 		else:
 			drive_state = 1
-			r_wheel = (dY - dX) / dH
+			r_wheel = (dY - dX) / dH * 100
 	# negative m
 	elif direction < 0:
-		r_wheel = 1
+		r_wheel = 100
 		# heading offset more than 45 to the left
 		if direction < -1:
 			drive_state = 0
-			l_wheel = dX / dH
+			l_wheel = dX / dH * 100
 		else:
 			drive_state = 1
-			l_wheel = (dY - dX) / dH
+			l_wheel = (dY - dX) / dH * 100
 	else:
 		drive_state = 1
-		r_wheel, l_wheel = 1
+		r_wheel, l_wheel = 100
 	# send state to bus
-	bus.write_i2c_block_data(i2c_add, drive_enabled, [l_wheel, r_wheel, drive_state])
+	bus.write_i2c_block_data(i2c_add, drive_enabled, [int(l_wheel), int(r_wheel), drive_state])
 
 
 def main():
-	# initialize the bus
-	bus = smbus.SMBus(1)
 	# initailize the camera
 	print('Camera Opening')
-	camera = PiCamera()
-	ca = (640, 480)
-	camera.framerate = 32
+	camera = PiCamera(resolution=RESOLUTION, framerate=FRAME_RATE)
 	rawCapture = PiRGBArray(camera, size=(640, 480))
 	time.sleep(.5)
-	print('Ready')
-	# initialize a stream to monitor the camera/processed
-	#output = streamer.StreamingOutput(resolution='640x480', framerate=32)
-	#addres = ('', 8000)
-	#server = streamer.StreamingServer(address, StreamingHandler)
-	#server.serve_forever()
 	
-	for frame in camera.capture_continuous(rawCapture, format='bgr', use_video_port=True):
-		print("New Frame")
-		base_image = frame.array
-		#cv.imwrite('bare-stream.mjpg', base_image)
-		data = processes_image(base_image)
-		#cv.imwrite('proc-stream.mjpg', data[0])
-		#fig, ax = plt.subplots()
-		#ax.add_collection(data[1][2])
-		#plt.show()
+	# initialize a stream to monitor the camera/processed
+	print('initializing stream')
+	# initialize stream buffer
+	orig_writer = VideoWriter('raw-video', 'MJPG', FRAME_RATE, RESOLUTION, True)
+	proc_writer = VideoWriter('proc-video', 'MJPG', FRAME_RATE, RESOLUTION, True)
+	output = streamer.StreamingOutput()
+	address = ('', 8000)
+	server = streamer.StreamingServer(address, streamer.StreamingHandler)
+	server.serve_forever()
+	print('Ready')
+
+	for frame in camera.capture_continuous(rawCapture, format='RGB', use_video_port=True):
+		print("New Frame, Drive_state:", drive_enabled)
+		image = frame.array
+		base_image = image.copy()
+		data = process_image(image)
+		# write to video stream
+		orig_writer.write(base_image)
+		proc_writer.write(data[0])
 		update_wheel_speeds(data[1][3], data[1][4], bus)
 		rawCapture.truncate(0)
-		
+
 if __name__=="__main__":
-	main()
-		
-		
-		
-		
+	try:
+		main()
+	except KeyboardInterrupt:
+		print("Stopping bot")
+		bus.write_i2c_block_data(i2c_add, 0, [0, 0, 1])
+	except Exception as e:
+		print("Stopping bot")
+		bus.write_i2c_block_data(i2c_add, 0, [0, 0, 1])
+		print(e)
+	
+	# clean up
+	cv.destroyAllWindows()
+	orig_writer.release()
+	proc_writer.release()		
