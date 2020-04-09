@@ -1,7 +1,7 @@
 import time
 import smbus
 import cv2 as cv
-#import streamer
+import traceback
 import numpy as np
 from picamera import PiCamera
 import matplotlib.pyplot as plt
@@ -11,13 +11,13 @@ from matplotlib.collections import LineCollection
 # this bound captures the noise in hsv
 # masked with the tape bounds eliminates
 # almost all noise
-LOW_HSV = np.array([20,0,100])
-UPP_HSV = np.array([95,85,140])
+LOW_NOISE = np.array([20,0,100])
+UPP_NOISE = np.array([95,85,140])
 
 # tape bounds
 # bound has significant noise
 L_HSV = np.array([20,0, 100])
-U_HSV = np.array([95,150, 250])
+U_HSV = np.array([95,255, 255])
 
 # default i2c address
 # must be the same on arduino
@@ -35,6 +35,8 @@ DIRECTIONAL_ERR = .5
 FRAME_RATE = 30
 # resolution global
 RESOLUTION = (640, 480)
+#stream port
+STREAM_PORT = 8000
 
 
 # finds the hough lines in the canny image
@@ -64,9 +66,6 @@ def get_houghLines(edges):
 			line_col.append([(x1,-y1),(x2,-y2)])
 	lineCollection = LineCollection(line_col)
 	# divides the sum of deltas by number of lines
-	# thus the average
-	dX = dX / len(lines)
-	dY = dY / len(lines)
 	return [line_img, lines, lineCollection, dX, dY]
 
 
@@ -92,7 +91,7 @@ def process_image(base_image):
 	# bilateral filter blurs noise and perserves edges
 	blurred = cv.bilateralFilter(base_image, 10, 75, 75)
 	blurred_hsv = cv.cvtColor(blurred, cv.COLOR_BGR2HSV)
-	mask1 = cv.inRange(blurred_hsv, LOW_HSV, UPP_HSV)
+	mask1 = cv.inRange(blurred_hsv, LOW_NOISE, UPP_NOISE)
 	mask2 = cv.inRange(blurred_hsv, L_HSV, U_HSV)
 	mask = mask1 ^ mask2
 	seg_img = cv.bitwise_and(blurred_hsv, blurred_hsv, mask=mask)
@@ -104,12 +103,12 @@ def process_image(base_image):
 
 # converts lane headings into wheel speeds
 # wheel speeds are percentages and must be positive
-# talk to Mitch about vizualizing the
+# talk to Mitch about vizualizing the mapping
 # TODO: update equations to better direct the bot
 #		possibilities for this are using a neural net,
 #		this will improve the precision and eleminate
 #		a lot of image processing
-def update_wheel_speeds(dX, dY, bus):
+def update_wheel_speeds(dX, dY, bus):#
 	if np.abs(dX) < .5:
 		bus.write_i2c_block_data(i2c_add, drive_enabled, [100, 100, 1])
 	direction = dY / dX
@@ -136,52 +135,41 @@ def update_wheel_speeds(dX, dY, bus):
 			l_wheel = (dY - dX) / dH * 100
 	else:
 		drive_state = 1
-		r_wheel, l_wheel = 100
+		r_wheel, l_wheel = 100	
 	# send state to bus
 	bus.write_i2c_block_data(i2c_add, drive_enabled, [int(l_wheel), int(r_wheel), drive_state])
+	return {'Left Wheel':int(l_wheel), 'Right Wheel':int(r_wheel), 'State':drive_state, 'Enabled':drive_enabled}
 
 
-def main():
-	# initailize the camera
-	print('Camera Opening')
-	camera = PiCamera(resolution=RESOLUTION, framerate=FRAME_RATE)
-	rawCapture = PiRGBArray(camera, size=(640, 480))
-	time.sleep(.5)
-	
-	# initialize a stream to monitor the camera/processed
-	print('initializing stream')
-	# initialize stream buffer
-	orig_writer = VideoWriter('raw-video', 'MJPG', FRAME_RATE, RESOLUTION, True)
-	proc_writer = VideoWriter('proc-video', 'MJPG', FRAME_RATE, RESOLUTION, True)
-	output = streamer.StreamingOutput()
-	address = ('', 8000)
-	server = streamer.StreamingServer(address, streamer.StreamingHandler)
-	server.serve_forever()
-	print('Ready')
-
-	for frame in camera.capture_continuous(rawCapture, format='RGB', use_video_port=True):
-		print("New Frame, Drive_state:", drive_enabled)
-		image = frame.array
-		base_image = image.copy()
-		data = process_image(image)
-		# write to video stream
-		orig_writer.write(base_image)
-		proc_writer.write(data[0])
-		update_wheel_speeds(data[1][3], data[1][4], bus)
-		rawCapture.truncate(0)
+def main(camera, frame):
+	while(1):
+		camera.capture(frame, format='rgb', use_video_port=True)
+		#data = process_image(frame.array)
+		#state = update_wheel_speeds(data[1][3], data[1][4], bus)
+		print(state)
+		#print('Average m:', data[1][4]/data[1][3])
+		frame.truncate(0)
 
 if __name__=="__main__":
+	# initailize the camera
+	print('Camera Opening:...')
+	camera = PiCamera(resolution=RESOLUTION, framerate=FRAME_RATE)
+	frame = PiRGBArray(camera, RESOLUTION)
+	camera.start_preview()
+	time.sleep(.5)
+	print('Ready!')
 	try:
-		main()
+		main(camera, frame)
 	except KeyboardInterrupt:
-		print("Stopping bot")
+		print("Stopping Bot:...")
 		bus.write_i2c_block_data(i2c_add, 0, [0, 0, 1])
 	except Exception as e:
-		print("Stopping bot")
+		print("Stopping Bot:...")
 		bus.write_i2c_block_data(i2c_add, 0, [0, 0, 1])
 		print(e)
-	
+		print(e)
+
 	# clean up
+	print('Cleaning Windows and Camera:...')
+	camera.stop_preview()
 	cv.destroyAllWindows()
-	orig_writer.release()
-	proc_writer.release()		
