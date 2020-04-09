@@ -6,12 +6,13 @@ from matplotlib import cm
 from matplotlib import colors
 import imutils
 from matplotlib.collections import LineCollection
+#from picamera import PiCamera
 
 def nothing(x):
 	pass
 
 # read/display original image
-image = cv.cvtColor(cv.imread('images/img1.jpg'), cv.COLOR_BGR2RGB)
+image = cv.imread('images/img5.jpg', 1)
 image = image[int(image.shape[0]/3):image.shape[0],0:image.shape[1]]
 base_image = image.copy()
 fig, ((ax1, ax2, ax3, ax4), (ax5, ax6, ax7, ax8)) = plt.subplots(2, 4, figsize=(15,7))
@@ -53,25 +54,30 @@ while 1:
 		lower[1] = cv.getTrackbarPos('G', 'View')
 		lower[2] = cv.getTrackbarPos('B', 'View')
 """
-low_hsv = np.array([20,0,100])
-upp_hsv = np.array([95,85,140])
+low_noise = np.array([[20,0,100],[95,85,150]])
 
 l_hsv = np.array([20,0, 100])
-h_hsv = np.array([95,150, 250])
+h_hsv = np.array([95,255, 255])
+
+upp_noise = np.array([[90,60,100],[95,140,220]])
 
 low_rgb = np.array([140, 140, 70])
 upp_rgb = np.array([255, 255, 245])
 
 mask1 = cv.inRange(blurred_hsv, l_hsv, h_hsv)
-mask2 = cv.inRange(blurred_hsv, low_hsv, upp_hsv)
+mask2 = cv.inRange(blurred_hsv, low_noise[0], low_noise[1])
+mask3 = cv.inRange(blurred_hsv, upp_noise[0], upp_noise[1])
 ax3.set_title('hsv mask')
-ax4.set_title('noise mask')
+ax4.set_title('low noise')
+ax5.set_title('high noise')
 ax3.imshow(mask1)
 ax4.imshow(mask2)
+ax5.imshow(mask3)
 mask = mask1 ^ mask2
+#mask = mask ^ mask3
 seg_img = cv.bitwise_and(blurred_hsv, blurred_hsv, mask=mask)
-ax5.set_title('segmented')
-ax5.imshow(seg_img)
+ax6.set_title('segmented')
+ax6.imshow(seg_img)
 
 """
 # plots a scatter of the colors in the photo
@@ -106,8 +112,8 @@ cv.waitKey()
 
 # filter for edges and display
 edges = cv.Canny(seg_img, 0, 500)
-ax6.set_title('canny')
-ax6.imshow(edges)
+ax7.set_title('canny')
+ax7.imshow(edges)
 
 # read contours from grayscale
 #contours, hierarchy = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
@@ -138,33 +144,59 @@ dX = 0
 dY = 0
 line_col = []
 lines = cv.HoughLinesP(edges, 100, 1, threshold, min_lin_len, max_lin_gap)
+left_lines = []
+center_lines = []
+right_lines = []
+l_bound = 480 * 2 / 5
+r_bound = 480 * 3 / 5
 for line in lines:
 	for x1, y1, x2, y2 in line:
-		cv.line(line_img, (x1, y1), (x2, y2), [0, 255, 0], 2)
-		dX += (x2-x1)
-		dY += (y2-y1)
-		
-		line_col.append([(x1,-y1),(x2,-y2)])
-lineCollection = LineCollection(line_col)
-print('delta sums:',dX,dY)
-dX = dX / len(lines)
-dY = dY / len(lines)
-print('deltas:',dX,dY)
+		if x1 != x2:
+			print(x1,x2,y1,y2)
+			fit = np.polyfit((x1, x2), (y1, y2), 1)
+			slope = fit[0]
+			intercept = fit[1]
+			if x1 < l_bound and x2 < l_bound:
+				left_lines.append((slope, intercept))
+				print('left')
+			elif x1 > r_bound and x2 > r_bound:
+				right_lines.append((slope, intercept))
+				print('right')
+			elif x1 < 480 and x2 < 480:
+				center_lines.append((slope, intercept))
+				print('center')
+
+left_avg = np.nanmean(left_lines, axis=0)
+right_avg = np.nanmean(right_lines, axis=0)
+center_avg = np.nanmean(center_lines, axis=0)
+
+
+
+if len(left_avg.shape) == 1:
+	cv.line(line_img, (0, int(left_avg[1])), (int(l_bound), int(l_bound * left_avg[0] + left_avg[1])), (0,255,0), 2)
+if len(center_avg.shape) == 1:
+	cv.line(line_img, (int(l_bound), int(center_avg[1])), (int(r_bound), int(r_bound * center_avg[0] + center_avg[1])), (0,255,0), 2)
+if len(right_avg.shape) == 1:
+	cv.line(line_img, (int(r_bound), int(right_avg[1])), (480, int(480 * right_avg[0] + right_avg[1])), (0,255,0), 2)
+
+print(left_avg, center_avg, right_avg)
+
 print('num lines:',len(lines))
 image = cv.addWeighted(image, 0.8, line_img, 1.0, 0.0)
+
+
 # draw indicator line
 center_point = (int(image.shape[1]/2),int(image.shape[0]/2))
-end_point = (center_point[0] - int(20 * dY), center_point[1] - int(20 * dX))
+end_point = (center_point[0] - int(20 ), center_point[1] - int(20))
 print('center:',center_point)
 print('end_point:',end_point)
 cv.line(image, center_point, end_point, (255,0,0), 2)
 # mark front of indicator
 cv.circle(image, end_point, 1, (0,255,0), -1)
 
-ax7.set_title('processed')
-ax7.imshow(image)
-ax8.set_title('original')
-ax8.imshow(base_image)
+ax8.set_title('processed')
+ax8.imshow(image)
+
 plt.show()
 cv.waitKey()
 #fig, ax = plt.subplots()
@@ -172,3 +204,4 @@ cv.waitKey()
 #ax.autoscale()
 #plt.show()
 cv.destroyAllWindows()
+
