@@ -1,2 +1,2 @@
 # Dyse-Robotics
-Robotics/Mechatronics Group
+Misc. Programs used for robotics and system controls
