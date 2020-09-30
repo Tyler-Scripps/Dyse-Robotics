@@ -1,2 +1,3 @@
 # Dyse-Robotics
-Misc. Programs used for robotics and system controls
+Misc. Programs, readings and resources pertaining to robotics
+
