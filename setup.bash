@@ -48,4 +48,4 @@ else
 	echo "[${ME}] Added ${PWD}/dyse-tools to PYTHONPATH";
 fi
 
-echo "alias load_tools='export PYTHONPATH=$PYTHONPATH:${DIR}/dyse-tools" >> ~/.bashrc
+echo "alias load_tools='export PYTHONPATH=$PYTHONPATH:${DIR}/dyse-tools'" >> ~/.bashrc
