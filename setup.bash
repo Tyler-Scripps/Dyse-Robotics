@@ -92,18 +92,17 @@ if [[ ${PROJECT_NAME} == none ]]; then
 
 elif [[ ${FROM_SAVE} == true ]]; then
 	echo [${ME}] cloning $PROJECT_NAME
-	cd Projects
-	git clone https://github.com/mithellscott/${PROJECT_NAME}
-	cd ${PROJECT_NAME}
+	cd ${DIR}/Projects
 	git submodule add https://github.com/mithellscott/${PROJECT_NAME}
+	cd ${PROJECT_NAME}
 	pip install --ignore-installed -r python3_requirements.txt
 	catkin_make
 
 else
-	echo [${ME}] creating "${PROJECT_NAME}"
+	echo [${ME}] creating $PROJECT_NAME
 	cd ${DIR}/Projects
-	mkdir "${PROJECT_NAME}"
-	cd "${PROJECT_NAME}"
+	mkdir $PROJECT_NAME
+	cd $PROJECT_NAME
 	mkdir Resources
 	catkin_make -DPYTHON_EXECUTABLE=/usr/bn/python3
 	git init
