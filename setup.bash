@@ -7,7 +7,9 @@
 DIR=$PWD
 ME=Installer
 ENV_NAME=dyse-env
-PROJECT_NAME=
+FROM_SAVE=false
+PROJECT_NAME=null
+
 
 echo [${ME}] installing from ${DIR}
 
@@ -51,6 +53,7 @@ purgeFunction()
 # make sure that the script is executing from Rofous root
 if [[ ${DIR} == */Dyse-Robotics ]]; then
 	echo [${ME}] Initializing repository ;
+	git checkout mdsdev
 else
 	echo [${ME}] Please run this script from the top directory of this repository ; 
 	helpFunction
@@ -64,24 +67,53 @@ do
 		name) ENV_NAME=${OPTARG} ;;
 		p) purgeFunction ;;
 		project) PROJECT_NAME=${OPTARG} ;;
+		git) PROJECT_NAME=${OPTARG} FROM_SAVE=true;;
     	?) helpFunction ;; # Print helpFunction in case parameter is non-existent
 	esac
 done
 
 # force user to provide python environment path
-checkInputs()
+checkInputs
 
-# install python3 dependencies
-sudo apt-get update
-python3 -m venv ${ENV_PATH}/${ENV_NAME}
-source ${ENV_PATH}/${ENV_NAME}/bin/activate
-echo [${ME}] Creating your default environment
-pip install --upgrade pip
-pip install --ignore-installed -r ${DIR}/python3_requirements.txt
-deactivate
+if [[ ${PROJECT_NAME} == null ]]; then
 
-echo "alias load_tools='PYTHONPATH=$PYTHONPATH:${DIR}/dyse_tools && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
+	# install python3 dependencies
+	sudo apt-get update 
+	python3 -m venv ${ENV_PATH}/${ENV_NAME} 
+	source ${ENV_PATH}/${ENV_NAME}/bin/activate 
+	echo [${ME}] Creating your default environment 
+	pip install --upgrade pip 
+	pip install --ignore-installed -r ${DIR}/python3_requirements.txt 
+	deactivate
+
+	echo "alias load_tools='PYTHONPATH=$PYTHONPATH:${DIR}/dyse_tools && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
+
+else if [[ ${FROM_SAVE} == true ]]; then
+	load_tools
+	echo [${ME}] cloning ${PROJECT_NAME}
+	cd Projects
+	git clone https://github.com/mithellscott/${PROJECT_NAME}
+	cd ${PROJECT_NAME}
+	pip install --ignore-installed -r python3_requirements.txt
+	catkin_make
+	deactivate
+
+else
+	load_tools
+	echo [${ME}] creating ${PROJECT_NAME}
+	cd Projects
+	mkdir ${PROJECT_NAME}
+	cd ${PROJECT_NAME}
+	mkdir Resources
+	catkin_make -DPYTHON_EXECUTABLE=/usr/bn/python3
+	git init
+	git add .
+	git commit -m "init commmit"
+	git remote add origin git@github.com:mithellscott/${PROJECT_NAME}.git
+	git push -u origin master
+fi
+
 
 echo
-echo [${ME}] Successful Install
+echo [${ME}] Setup Successful
 echo
