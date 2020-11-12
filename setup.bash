@@ -90,7 +90,7 @@ if [[ ${PROJECT_NAME} == null ]]; then
 	echo "alias load_tools='PYTHONPATH=$PYTHONPATH:${DIR}/dyse_tools && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
 
 elif [[ ${FROM_SAVE} == true ]]; then
-	echo [${ME}] cloning ${PROJECT_NAME}
+	echo [${ME}] cloning "${PROJECT_NAME}"
 	cd Projects
 	git clone https://github.com/mithellscott/${PROJECT_NAME}
 	cd ${PROJECT_NAME}
