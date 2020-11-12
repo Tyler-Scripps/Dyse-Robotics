@@ -64,11 +64,11 @@ fi
 while getopts e:n:p:c:g opt
 do
 	case ${opt} in
-    	e) ENV_PATH=${OPTARG} ;;
-		n) ENV_NAME=${OPTARG} ;;
+    	e) ENV_PATH=$OPTARG ;;
+		n) ENV_NAME=$OPTARG ;;
 		p) purgeFunction ;;
-		c) PROJECT_NAME=${OPTARG} ;;
-		g) echo ${OPTARG}; PROJECT_NAME=${OPTARG} ; FROM_SAVE=true;;
+		c) PROJECT_NAME=$OPTARG ;;
+		g) PROJECT_NAME=$OPTARG ; FROM_SAVE=true;;
     	?) helpFunction ;; # Print helpFunction in case parameter is non-existent
 	esac
 done
