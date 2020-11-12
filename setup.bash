@@ -76,7 +76,7 @@ done
 # force user to provide python environment path
 checkInputs
 
-echo PROJECT_NAME
+echo "${PROJECT_NAME}"
 
 if [[ ${PROJECT_NAME} == null ]]; then
 	# install python3 dependencies
