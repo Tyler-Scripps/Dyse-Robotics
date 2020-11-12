@@ -94,6 +94,7 @@ elif [[ ${FROM_SAVE} == true ]]; then
 	echo [${ME}] cloning $PROJECT_NAME
 	cd ${DIR}/Projects
 	git clone https://github.com/mithellscott/${PROJECT_NAME}
+	git submodule add https://github.com/mithellscott/${PROJECT_NAME}
 	cd ${PROJECT_NAME}
 	pip install --ignore-installed -r python3_requirements.txt
 	catkin_make
