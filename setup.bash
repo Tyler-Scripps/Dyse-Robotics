@@ -8,7 +8,7 @@ DIR=$PWD
 ME=Installer
 ENV_NAME=dyse-env
 FROM_SAVE=false
-PROJECT_NAME=null
+PROJECT_NAME=non-existent
 
 
 echo [${ME}] installing from ${DIR}
