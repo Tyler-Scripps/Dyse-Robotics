@@ -68,7 +68,7 @@ do
 		n) ENV_NAME=${OPTARG} ;;
 		p) purgeFunction ;;
 		c) PROJECT_NAME=${OPTARG} ;;
-		g) PROJECT_NAME=${OPTARG} ; FROM_SAVE=true;;
+		g) echo ${OPTARG}; PROJECT_NAME=${OPTARG} ; FROM_SAVE=true;;
     	?) helpFunction ;; # Print helpFunction in case parameter is non-existent
 	esac
 done
