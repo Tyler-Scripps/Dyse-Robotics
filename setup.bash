@@ -8,7 +8,7 @@ DIR=$PWD
 ME=Installer
 ENV_NAME=dyse-env
 FROM_SAVE=false
-PROJECT_NAME=non-existent
+PROJECT_NAME=none
 
 
 echo [${ME}] installing from ${DIR}
@@ -61,7 +61,7 @@ else
 fi
 
 # get user inputs, null will quit
-while getopts e:n:p:c:g opt
+while getopts e:n:p:c:g: opt
 do
 	case ${opt} in
     	e) ENV_PATH=$OPTARG ;;
@@ -78,7 +78,7 @@ checkInputs
 
 echo $PROJECT_NAME
 
-if [[ ${PROJECT_NAME} == null ]]; then
+if [[ ${PROJECT_NAME} == none ]]; then
 	# install python3 dependencies
 	sudo apt-get update 
 	python3 -m venv ${ENV_PATH}/${ENV_NAME} 
