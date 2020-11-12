@@ -68,7 +68,7 @@ do
 		n) ENV_NAME=${OPTARG} ;;
 		p) purgeFunction ;;
 		c) PROJECT_NAME=${OPTARG} ;;
-		g) PROJECT_NAME=${OPTARG}; FROM_SAVE=true;;
+		g) PROJECT_NAME=${OPTARG} ; FROM_SAVE=true;;
     	?) helpFunction ;; # Print helpFunction in case parameter is non-existent
 	esac
 done
@@ -76,7 +76,7 @@ done
 # force user to provide python environment path
 checkInputs
 
-echo "${PROJECT_NAME}"
+echo $PROJECT_NAME
 
 if [[ ${PROJECT_NAME} == null ]]; then
 	# install python3 dependencies
