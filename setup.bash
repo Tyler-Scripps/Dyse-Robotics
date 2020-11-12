@@ -61,7 +61,7 @@ else
 fi
 
 # get user inputs, null will quit
-while getopts e:n:p:project opt
+while getopts e:n:p:c:g opt
 do
 	case ${opt} in
     	e) ENV_PATH=${OPTARG} ;;
@@ -99,10 +99,10 @@ elif [[ ${FROM_SAVE} == true ]]; then
 	deactivate
 
 else
-	echo [${ME}] creating ${PROJECT_NAME}
-	cd Projects
-	mkdir ${PROJECT_NAME}
-	cd ${PROJECT_NAME}
+	echo [${ME}] creating "${PROJECT_NAME}"
+	cd ${DIR}/Projects
+	mkdir "${PROJECT_NAME}"
+	cd "${PROJECT_NAME}"
 	mkdir Resources
 	catkin_make -DPYTHON_EXECUTABLE=/usr/bn/python3
 	git init
