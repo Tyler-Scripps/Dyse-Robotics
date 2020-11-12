@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# This is the setup file for Rofous
+# This is the setup file for Dyse-Tools
 # This file adds the tools package to PYTHONPATH
 # it also creates an alias for adding the package
 
@@ -7,6 +7,7 @@
 DIR=$PWD
 ME=Installer
 ENV_NAME=dyse-env
+PROJECT_NAME=
 
 echo [${ME}] installing from ${DIR}
 
@@ -14,7 +15,9 @@ helpFunction()
 {
    echo -e "\n \t-e Decides the location of the default python3 environment for this project"
    echo -e "\t-name Decides the name of the python env the default is drone-env"
-   echo -e "\t-p will purge the project setup\n"
+   echo -e "\t-p will purge the project setup"
+   echo -e "\t-project creates a new project in the projects folder\n"
+   echo -e "\t-git will load a project from git"
    exit 1 # Exit script after printing help
 }
 
@@ -38,6 +41,7 @@ purgeFunction()
 	PYTHONPATH=
 	echo -e [${ME}] removing:" \n\t $ENV_PATH/$ENV_NAME"
 	sudo rm -rf ${ENV_PATH}/${ENV_NAME}
+	sed -i '/dyse/d' ~/.bashrc
 	echo
 	echo [${ME}] Done purging!
 	echo
@@ -45,7 +49,7 @@ purgeFunction()
 }
 
 # make sure that the script is executing from Rofous root
-if [[ ${DIR} == */Dyse-Robotics ]] || [[ ${DIR} == */rofous ]]; then
+if [[ ${DIR} == */Dyse-Robotics ]]; then
 	echo [${ME}] Initializing repository ;
 else
 	echo [${ME}] Please run this script from the top directory of this repository ; 
@@ -53,18 +57,19 @@ else
 fi
 
 # get user inputs, null will quit
-while getopts e:name:p: opt
+while getopts e:name:p:project opt
 do
 	case ${opt} in
     	e) ENV_PATH=${OPTARG} ;;
 		name) ENV_NAME=${OPTARG} ;;
 		p) purgeFunction ;;
+		project) PROJECT_NAME=${OPTARG} ;;
     	?) helpFunction ;; # Print helpFunction in case parameter is non-existent
 	esac
 done
 
 # force user to provide python environment path
-checkInputs
+checkInputs()
 
 # install python3 dependencies
 sudo apt-get update
