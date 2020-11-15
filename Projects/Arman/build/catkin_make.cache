@@ -1,2 +1,0 @@
-
--DPYTHON_EXECUTABLE=/home/m_dyse/pyenvs/arm-env/bin/python3 -DCATKIN_DEVEL_PREFIX=/home/m_dyse/Dyse-Robotics/Projects/Arman/devel -DCMAKE_INSTALL_PREFIX=/home/m_dyse/Dyse-Robotics/Projects/Arman/install -G Unix Makefiles

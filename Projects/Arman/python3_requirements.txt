@@ -1,7 +1,0 @@
-numpy
-scipy
-pyYAML
-PiCamera
-matplotlib
-opencv-python
-adafruit-circuitpython-servokit
