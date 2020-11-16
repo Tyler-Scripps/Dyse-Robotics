@@ -16,10 +16,10 @@ echo [${ME}] installing from ${DIR}
 helpFunction()
 {
    echo -e "\n \t-e Decides the location of the default python3 environment for this project"
-   echo -e "\t-name Decides the name of the python env the default is drone-env"
+   echo -e "\t-n Decides the name of the python env the default is drone-env"
    echo -e "\t-p will purge the project setup"
-   echo -e "\t-project creates a new project in the projects folder\n"
-   echo -e "\t-git will load a project from git"
+   echo -e "\t-c creates a new project in the projects folder\n"
+   echo -e "\t-g will load a project from git"
    exit 1 # Exit script after printing help
 }
 
@@ -52,22 +52,22 @@ purgeFunction()
 
 # make sure that the script is executing from Rofous root
 if [[ ${DIR} == */Dyse-Robotics ]]; then
-	echo [${ME}] Initializing repository ;
+	echo [${ME}] Initializing repository
 	git checkout mdsdev
 else
-	echo [${ME}] Please run this script from the top directory of this repository ; 
+	echo [${ME}] Please run this script from the top directory of this repository
 	helpFunction
 fi
 
 # get user inputs, null will quit
-while getopts e:name:p:project opt
+while getopts e:n:p:c:g opt
 do
 	case ${opt} in
     	e) ENV_PATH=${OPTARG} ;;
-		name) ENV_NAME=${OPTARG} ;;
+		n) ENV_NAME=${OPTARG} ;;
 		p) purgeFunction ;;
-		project) PROJECT_NAME=${OPTARG} ;;
-		git) PROJECT_NAME=${OPTARG} FROM_SAVE=true;;
+		c) PROJECT_NAME=${OPTARG} ;;
+		g) PROJECT_NAME=${OPTARG} FROM_SAVE=true;;
     	?) helpFunction ;; # Print helpFunction in case parameter is non-existent
 	esac
 done
@@ -75,8 +75,7 @@ done
 # force user to provide python environment path
 checkInputs
 
-if [[ ${PROJECT_NAME} == null ]]; then
-
+if [ $PROJECT_NAME == null ]; then
 	# install python3 dependencies
 	sudo apt-get update 
 	python3 -m venv ${ENV_PATH}/${ENV_NAME} 
@@ -88,7 +87,7 @@ if [[ ${PROJECT_NAME} == null ]]; then
 
 	echo "alias load_tools='PYTHONPATH=$PYTHONPATH:${DIR}/dyse_tools && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
 
-else if [[ ${FROM_SAVE} == true ]]; then
+elif [ ${FROM_SAVE} == true ]; then
 	echo [${ME}] cloning ${PROJECT_NAME}
 	cd Projects
 	git clone https://github.com/mithellscott/${PROJECT_NAME}
@@ -111,7 +110,9 @@ else
 	git push -u origin master
 fi
 
+git add .
+git commit -m "Auto-Commit"
 
-echo
+echo " "
 echo [${ME}] Setup Successful
-echo
+echo " "
