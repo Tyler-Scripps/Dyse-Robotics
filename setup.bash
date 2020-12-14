@@ -111,7 +111,7 @@ else
 fi
 
 git add .
-git commit -m "Auto-Commit"
+git commit -m "[$ME] Auto-Commit"
 
 echo " "
 echo [${ME}] Setup Successful

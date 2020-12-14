@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 [submodule "Projects/Rofous"]
 	path = Projects/Rofous
 	url = https://github.com/mithellscott/Rofous
 
 [submodule "Projects/Arman"]
 	path = Projects/Arman
+=======
+[submodule "Project/Arman"]
+	path = Project/Arman
+>>>>>>> 06f8fd0618263eca161d2f5b2bae101ab3359488
 	url = https://github.com/mithellscott/Arman
