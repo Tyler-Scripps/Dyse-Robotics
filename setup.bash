@@ -18,8 +18,8 @@ helpFunction()
    echo -e "\n \t-e Decides the location of the default python3 environment for this project"
    echo -e "\t-n Decides the name of the python env the default is drone-env"
    echo -e "\t-p will purge the project setup"
-   echo -e "\t-c creates a new project in the projects folder\n"
-   echo -e "\t-g will load a project from git"
+   echo -e "\t-c creates a new project in the projects folder"
+   echo -e "\t-g will load a project from git\n"
    exit 1 # Exit script after printing help
 }
 
@@ -53,7 +53,6 @@ purgeFunction()
 # make sure that the script is executing from Rofous root
 if [[ ${DIR} == */Dyse-Robotics ]]; then
 	echo [${ME}] Initializing repository
-	git checkout mdsdev
 else
 	echo [${ME}] Please run this script from the top directory of this repository
 	helpFunction
@@ -92,9 +91,7 @@ elif [ ${FROM_SAVE} == true ]; then
 	cd Projects
 	git clone https://github.com/mithellscott/${PROJECT_NAME}
 	cd ${PROJECT_NAME}
-	pip install --ignore-installed -r python3_requirements.txt
-	catkin_make
-	deactivate
+	./setup.bash -e $ENV_PATH -n ${PROJECT_NAME}_env
 
 else
 	echo [${ME}] creating ${PROJECT_NAME}
