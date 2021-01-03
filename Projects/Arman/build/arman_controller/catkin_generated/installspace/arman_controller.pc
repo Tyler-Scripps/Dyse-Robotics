@@ -1,0 +1,8 @@
+prefix=/home/m_dyse/Dyse-Robotics/Projects/Arman/install
+
+Name: arman_controller
+Description: Description of arman_controller
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

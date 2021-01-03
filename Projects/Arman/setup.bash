@@ -6,14 +6,14 @@
 # initialize some variables for setup
 DIR=$PWD
 ME=Installer
-ENV_NAME=arm-env
+ENV_NAME=Arman_env
 
 echo [${ME}] installing from ${DIR}
 
 helpFunction()
 {
    echo -e "\n \t-e Decides the location of the default python3 environment for this project"
-   echo -e "\t-name Decides the name of the python env the default is drone-env"
+   echo -e "\t-name Decides the name of the python env the default is Arman_env"
    echo -e "\t-p will purge the project setup\n"
    exit 1 # Exit script after printing help
 }
@@ -35,9 +35,9 @@ purgeFunction()
 	if [[ ${PTHONPATH} == */${ENV_PATH}/* ]]; then
 		deactivate
 	fi
-	PYTHONPATH=
+	export PYTHONPATH=
 	echo -e [${ME}] removing:" \n\t $ENV_PATH/$ENV_NAME \n\t build \n\t devel \n\t src/CMakeLists.txt"
-	sudo rm -rf ${ENV_PATH}/${ENV_NAME} build devel src/CMakeLists.txt
+	sudo rm -rf ${ENV_PATH}/${ENV_NAME} build devel
 	echo
 	echo [${ME}] Done purging!
 	echo

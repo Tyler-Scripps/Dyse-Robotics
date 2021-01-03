@@ -6,7 +6,7 @@
 # initialize some variables for setup
 DIR=$PWD
 ME=Installer
-ENV_NAME=dyse-env
+ENV_NAME=Dyse-env
 FROM_SAVE=false
 PROJECT_NAME=null
 
@@ -16,7 +16,7 @@ echo [${ME}] installing from ${DIR}
 helpFunction()
 {
    echo -e "\n \t-e Decides the location of the default python3 environment for this project"
-   echo -e "\t-n Decides the name of the python env the default is drone-env"
+   echo -e "\t-n Decides the name of the python env the default is Dyse-env"
    echo -e "\t-p will purge the project setup"
    echo -e "\t-c creates a new project in the projects folder"
    echo -e "\t-g will load a project from git\n"
@@ -59,7 +59,7 @@ else
 fi
 
 # get user inputs, null will quit
-while getopts e:n:p:c:g opt
+while getopts e:n:p:c:g: opt
 do
 	case ${opt} in
     	e) ENV_PATH=${OPTARG} ;;
