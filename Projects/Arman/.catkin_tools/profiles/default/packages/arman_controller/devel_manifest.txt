@@ -1,0 +1,5 @@
+arman_controller
+/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/cmake.lock /home/m_dyse/Dyse-Robotics/Projects/Arman/devel/./cmake.lock
+/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/share/arman_controller/cmake/arman_controllerConfig-version.cmake /home/m_dyse/Dyse-Robotics/Projects/Arman/devel/share/arman_controller/cmake/arman_controllerConfig-version.cmake
+/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/share/arman_controller/cmake/arman_controllerConfig.cmake /home/m_dyse/Dyse-Robotics/Projects/Arman/devel/share/arman_controller/cmake/arman_controllerConfig.cmake
+/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/lib/pkgconfig/arman_controller.pc /home/m_dyse/Dyse-Robotics/Projects/Arman/devel/lib/pkgconfig/arman_controller.pc

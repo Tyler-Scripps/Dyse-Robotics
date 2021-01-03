@@ -1,7 +1,7 @@
 numpy
 scipy
 pyYAML
-PiCamera
+#PiCamera
 matplotlib
 opencv-python
 adafruit-circuitpython-servokit
