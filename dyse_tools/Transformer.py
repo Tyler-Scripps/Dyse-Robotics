@@ -50,7 +50,7 @@ class Transformer:
     
     def add_translation(self, R, translation):
         n,m = R.shape
-        assert len(translation) == n, f'Translation dimension does not equal Rotation dimension: {len(translation)} != {n+1}'
+        assert len(translation) == n, f'Translation dimension does not equal Rotation dimension: {len(translation)} != {n}'
         new_tf = np.zeros((n+1,m+1))
         for i, row in enumerate(R):
             new_tf[i] = np.concatenate([np.array(row).reshape(m), [translation[i]]])
@@ -71,5 +71,5 @@ class Transformer:
             point = np.array(np.matmul(self.tf, point.T)).reshape(4) 
             if not self.child is None:
                 return self.child.transform(point[:3])
-                
+
         return point[:3]
