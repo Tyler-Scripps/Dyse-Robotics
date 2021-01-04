@@ -62,7 +62,7 @@ class Transformer:
         new_tf[m,n] = 1.0
         return new_tf
 
-    def build_transform(self, phi, theta, psi, tanslation):
+    def build_transform(self, phi, theta, psi, translation):
         self.build_rotation(phi, theta, psi)
         self.tf = self.add_translation(translation, R=self.R)
         self.tfI = self.add_translation(translation, R=self.R.T)
