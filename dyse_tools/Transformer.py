@@ -14,6 +14,7 @@ class Transformer:
         self.name = name
         self.child = None
         self.parent = parent
+        self.protocol = protocol
         self.R = np.matrix([[1.0,0.0,0.0],
                            [0.0,1.0,0.0],
                            [0.0,0.0,1.0]])
@@ -36,10 +37,12 @@ class Transformer:
                [-np.sin(psi), np.cos(psi), 0.0],
                [0.0, 0.0, 1.0]])
     
-    def build_rotation(self, phi, theta, psi, protocol):
+    def build_rotation(self, phi, theta, psi, protocol=None):
         self.R = np.matrix([[1.0,0.0,0.0],
                            [0.0,1.0,0.0],
                            [0.0,0.0,1.0]])
+        if protocol is None:
+            protocol = self.protocol
         for step in protocol[::-1]:
             if step == 'phi':
                 self.R = np.matmul(self.R, self.Rphi(phi))
@@ -48,7 +51,9 @@ class Transformer:
             else:
                 self.R = np.matmul(self.R, self.Rpsi(psi))
     
-    def add_translation(self, R, translation):
+    def add_translation(self, translation, R=None):
+        if R is None:
+            R = self.R
         n,m = R.shape
         assert len(translation) == n, f'Translation dimension does not equal Rotation dimension: {len(translation)} != {n}'
         new_tf = np.zeros((n+1,m+1))
