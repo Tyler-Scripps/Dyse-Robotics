@@ -19,8 +19,8 @@ class Transformer:
                            [0.0,1.0,0.0],
                            [0.0,0.0,1.0]])
         self.build_rotation(phi, theta, psi, protocol)
-        self.tf = self.add_translation(self.R, translation)
-        self.tfI = self.add_translation(self.R.T, translation)
+        self.tf = self.add_translation(translation, R=self.R)
+        self.tfI = self.add_translation(translation, R=self.R.T)
         
     def Rphi(self, phi):
         return np.matrix([[1.0, 0.0, 0.0],
