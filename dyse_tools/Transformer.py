@@ -18,9 +18,9 @@ class Transformer:
         self.R = np.matrix([[1.0,0.0,0.0],
                            [0.0,1.0,0.0],
                            [0.0,0.0,1.0]])
-        self.build_rotation(phi, theta, psi, protocol)
-        self.tf = self.add_translation(translation, R=self.R)
-        self.tfI = self.add_translation(translation, R=self.R.T)
+        self.tf = np.zeros((4,4))
+        self.tfI = np.zeros((4,4))
+        self.build_transform(phi, theta, psi, translation)
         
     def Rphi(self, phi):
         return np.matrix([[1.0, 0.0, 0.0],
@@ -61,6 +61,11 @@ class Transformer:
             new_tf[i] = np.concatenate([np.array(row).reshape(m), [translation[i]]])
         new_tf[m,n] = 1.0
         return new_tf
+
+    def build_transform(self, phi, theta, psi, tanslation):
+        self.build_rotation(phi, theta, psi)
+        self.tf = self.add_translation(translation, R=self.R)
+        self.tfI = self.add_translation(translation, R=self.R.T)
     
     def transform(self, point, inverse=False):
         """ input/output: a 3d cartesian point as numpy array
