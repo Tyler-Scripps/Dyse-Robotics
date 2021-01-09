@@ -53,12 +53,12 @@ else
 fi
 
 # get user inputs, null will quit
-while getopts e:name:p: opt
+while getopts e:n:p: opt
 do
 	case ${opt} in
     	e) ENV_PATH=${OPTARG} ;;
-		name) ENV_NAME=${OPTARG} ;;
-		p) purgeFunction ;;
+	n) ENV_NAME=${OPTARG} ;;
+	p) purgeFunction ;;
     	?) helpFunction ;; # Print helpFunction in case parameter is non-existent
 	esac
 done
