@@ -78,7 +78,9 @@ PYTHONPATH=/opt/ros/melodic/lib/python2.7/dist-packages
 
 # initialize the workspace
 echo [${ME}] initializing catkin workspace with ${ENV_PATH}/${ENV_NAME}/bin/python3 as executable path
-catkin_make -DPYTHON_EXECUTABLE=${ENV_PATH}/${ENV_NAME}/bin/python3
+catkin config --init
+catkin config -DPYTHON_EXECUTABLE=${ENV_PATH}/${ENV_NAME}/bin/python3
+catkin build
 
 echo "alias load_arman='PYTHONPATH=$PYTHONPATH:${DIR}/arman_tools && source ${DIR}/devel/setup.bash && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
 
