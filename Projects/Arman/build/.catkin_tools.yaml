@@ -1,6 +1,0 @@
-devel_space: /home/m_dyse/Dyse-Robotics/Projects/Arman/devel
-install: false
-install_space: /home/m_dyse/Dyse-Robotics/Projects/Arman/install
-profile: default
-source_space: /home/m_dyse/Dyse-Robotics/Projects/Arman/src
-workspace: /home/m_dyse/Dyse-Robotics/Projects/Arman
