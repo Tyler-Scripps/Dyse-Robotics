@@ -77,7 +77,7 @@ checkInputs
 if [ $PROJECT_NAME == null ]; then
 	# install python3 dependencies
 	sudo apt-get update
-	sudo apt-get install venv-python3
+	sudo apt-get install python3-venv
 	python3 -m venv ${ENV_PATH}/${ENV_NAME}
 	source ${ENV_PATH}/${ENV_NAME}/bin/activate
 	echo [${ME}] Creating your default environment: ...
