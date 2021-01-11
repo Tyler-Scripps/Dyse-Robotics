@@ -79,27 +79,35 @@ if [ $PROJECT_NAME == null ]; then
 	sudo apt-get update
 	python3 -m venv ${ENV_PATH}/${ENV_NAME}
 	source ${ENV_PATH}/${ENV_NAME}/bin/activate
-	echo [${ME}] Creating your default environment
+	echo [${ME}] Creating your default environment: ...
 	pip install --upgrade pip
 	pip install --ignore-installed -r ${DIR}/python3_requirements.txt
 	deactivate
-
-	echo "alias load_tools='PYTHONPATH=$PYTHONPATH:${DIR}/dyse_tools && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
+	export PYTHONPATH=/opt/ros/melodic/lib/python2.7/dist-packages:${DIR}/dyse_tools
+	echo "alias load_tools='PYTHONPATH=$PYTHONPATH && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
 
 elif [ ${FROM_SAVE} == true ]; then
-	echo [${ME}] cloning ${PROJECT_NAME}
+	echo [${ME}] cloning ${PROJECT_NAME}: ...
 	cd Projects
 	git clone https://github.com/mithellscott/${PROJECT_NAME}
 	cd ${PROJECT_NAME}
 	./setup.bash -e $ENV_PATH -n ${PROJECT_NAME}_env
 
 else
-	echo [${ME}] creating ${PROJECT_NAME}
+	echo [${ME}] creating ${PROJECT_NAME}: ...
 	cd Projects
 	mkdir ${PROJECT_NAME}
 	cd ${PROJECT_NAME}
-	mkdir Resources
-	catkin_make -DPYTHON_EXECUTABLE=/usr/bn/python3
+	mkdir Python3_Notebooks
+	cp ../../setup_template.bash setup.bash
+	sed -i /PROJECT_NAME=Sample/c\PROJECT_NAME=${PROJECT_NAME}
+
+	echo [${ME}] configuring catkin: ...
+	catkin config -init
+	catkin config -DPYTHON_EXECUTABLE=${ENV_PATH}/${ENV_NAME}/bin/python3
+	catkin build
+
+
 	git init
 	git add .
 	git commit -m "init commmit"
