@@ -1,6 +1,6 @@
 set(_CATKIN_CURRENT_PACKAGE "arman_controller")
 set(arman_controller_VERSION "0.0.0")
-set(arman_controller_MAINTAINER "m_dyse <m_dyse@todo.todo>")
+set(arman_controller_MAINTAINER "m_dyse <m_dyse@colorado.edu>")
 set(arman_controller_PACKAGE_FORMAT "2")
 set(arman_controller_BUILD_DEPENDS "message_generation")
 set(arman_controller_BUILD_EXPORT_DEPENDS )

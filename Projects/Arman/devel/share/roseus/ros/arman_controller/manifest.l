@@ -1,0 +1,1 @@
+/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/share/roseus/ros/arman_controller/manifest.l
