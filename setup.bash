@@ -6,7 +6,7 @@
 # initialize some variables for setup
 DIR=$PWD
 ME=Installer
-ENV_NAME=Dyse-env
+ENV_NAME=Dyse_env
 FROM_SAVE=false
 PROJECT_NAME=null
 
@@ -116,9 +116,6 @@ else
 	git remote add origin git@github.com:mithellscott/${PROJECT_NAME}.git
 	git push -u origin master
 fi
-
-git add .
-git commit -m "[$ME] Auto-Commit"
 
 echo " "
 echo [${ME}] Setup Successful

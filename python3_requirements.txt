@@ -1,5 +1,7 @@
-numpy
+empy
+wheel
 scipy
 pyYAML
 matplotlib
 opencv-python
+numpy==1.19.4
