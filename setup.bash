@@ -101,6 +101,7 @@ else
 	mkdir Python3_Notebooks
 	cp ../../setup_template.bash setup.bash
 	sed -i /PROJECT_NAME=Sample/c\PROJECT_NAME=${PROJECT_NAME}
+	chmod +x setup.bash
 
 	echo [${ME}] configuring catkin: ...
 	catkin config -init
