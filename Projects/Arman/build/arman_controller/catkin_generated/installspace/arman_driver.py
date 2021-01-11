@@ -3,9 +3,9 @@ import rospy
 import busio
 from adafruit_servokit import ServoKit
 from arman_controller.srv import ArmanDriver, ArmanDriverResponse
+
 i2c_addr = busio.I2C(board.SCL, board.SDA)
 kit = ServoKit(channels=16, i2c=i2c_addr)
-pins = [0, 4, 7, 8, 12]
 
 def update_joints(req):
 	kit.servo[0].angle = req.joint0
