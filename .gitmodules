@@ -1,3 +1,7 @@
 [submodule "Projects/Rofous"]
 	path = Projects/Rofous
 	url = https://github.com/mithellscott/Rofous
+
+[submodule "Projects/Arman"]
+	path = Projects/Arman
+	url = https://github.com/mithellscott/Arman.git
