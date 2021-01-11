@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
-# This is the setup file for Rofous
+# This is the setup template for new_projects
 # This file adds the tools package to PYTHONPATH
 # it also creates an alias for adding the package
 
 # initialize some variables for setup
 DIR=$PWD
+P_MODE=0
+P_REAL=0
 ME=Installer
-ENV_NAME=Arman_env
+PROJECT_NAME=Arman
+ENV_NAME=${PROJECT_NAME}_env
 
-echo [${ME}] installing from ${DIR}
+echo [${ME}] installing ${PROJECT_NAME} from ${DIR}
 
 helpFunction()
 {
    echo -e "\n \t-e Decides the location of the default python3 environment for this project"
-   echo -e "\t-name Decides the name of the python env the default is Arman_env"
+   echo -e "\t-n Decides the name of the python env"
    echo -e "\t-p will purge the project setup\n"
    exit 1 # Exit script after printing help
 }
@@ -37,7 +40,19 @@ purgeFunction()
 	fi
 	export PYTHONPATH=
 	echo -e [${ME}] removing:" \n\t $ENV_PATH/$ENV_NAME \n\t build \n\t devel \n\t src/CMakeLists.txt"
-	sudo rm -rf ${ENV_PATH}/${ENV_NAME} build devel
+	sudo rm -rf ${ENV_PATH}/${ENV_NAME}
+	catkin clean
+	if [[ P_MODE == 3.141592 ]]; then
+		read -p "Are you sure this is irreversible (y/n)" P_REAL
+	fi
+	if [[ P_REAL == y ]]; then
+		echo -e '\n\n[${ME}] Fairwell Sir\n'
+		git checkout master
+		sudo rm -rf src/* Python3_Notebooks/* ${PROJECT_NAME}_tools/*
+		git add .
+		git commit -m "See Ya!"
+		git push origin master
+	fi
 	echo
 	echo [${ME}] Done purging!
 	echo
@@ -45,7 +60,7 @@ purgeFunction()
 }
 
 # make sure that the script is executing from Rofous root
-if [[ ${DIR} == */Arman ]]; then
+if [[ ${DIR} == */${PROJECT_NAME} ]]; then
 	echo [${ME}] Initializing repository ;
 else
 	echo [${ME}] Please run this script from the top directory of this repository ; 
@@ -57,8 +72,8 @@ while getopts e:n:p: opt
 do
 	case ${opt} in
     	e) ENV_PATH=${OPTARG} ;;
-	n) ENV_NAME=${OPTARG} ;;
-	p) purgeFunction ;;
+		n) ENV_NAME=${OPTARG} ;;
+		p) P_MODE=${OPTARG} purgeFunction ;;
     	?) helpFunction ;; # Print helpFunction in case parameter is non-existent
 	esac
 done
@@ -68,7 +83,7 @@ checkInputs
 
 if [[ ${DIR} == */Dyse-Robotics/Projects/* ]] || [[ ${DIR} == */dyse-robotics/Projects/* ]]; then
 	echo [${ME}] pulling Dyse-Tools ;
-	cp ../../dyse_tools/*.py arman_tools
+	cp ../../dyse_tools/*.py ${PROJECT_NAME}_tools
 else
 	echo [${ME}] Isolated project, no tools available -e\n\t{$DIR};
 fi
@@ -89,7 +104,8 @@ catkin config --init
 catkin config -DPYTHON_EXECUTABLE=${ENV_PATH}/${ENV_NAME}/bin/python3
 catkin build
 
-echo "alias load_arman='export PYTHONPATH=$PYTHONPATH:${DIR}/arman_tools && source ${DIR}/devel/setup.bash && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
+export PYTHONPATH=/opt/ros/melodic/lib/python2.7/dist-packages:${DIR}/${PROJECT_NAME}_tools:${DIR}/src
+echo "alias load_${PROJECT_NAME}='export PYTHONPATH=$PYTHONPATH && source ${DIR}/devel/setup.bash && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
 
 echo
 echo [${ME}] Successful Install

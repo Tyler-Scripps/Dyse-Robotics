@@ -1,4 +1,4 @@
-The system is: Linux - 5.4.0-56-generic - x86_64
+The system is: Linux - 5.4.0-58-generic - x86_64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
 Compiler: /usr/bin/cc 
 Build flags: 
@@ -28,28 +28,28 @@ The CXX compiler identification is GNU, found in "/home/m_dyse/Dyse-Robotics/Pro
 Determining if the C compiler works passed with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_80ed2/fast"
-/usr/bin/make -f CMakeFiles/cmTC_80ed2.dir/build.make CMakeFiles/cmTC_80ed2.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_e3cba/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e3cba.dir/build.make CMakeFiles/cmTC_e3cba.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_80ed2.dir/testCCompiler.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_80ed2.dir/testCCompiler.c.o   -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_80ed2
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_80ed2.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_80ed2.dir/testCCompiler.c.o  -o cmTC_80ed2 
+Building C object CMakeFiles/cmTC_e3cba.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_e3cba.dir/testCCompiler.c.o   -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_e3cba
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e3cba.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_e3cba.dir/testCCompiler.c.o  -o cmTC_e3cba 
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_81b32/fast"
-/usr/bin/make -f CMakeFiles/cmTC_81b32.dir/build.make CMakeFiles/cmTC_81b32.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_15ecf/fast"
+/usr/bin/make -f CMakeFiles/cmTC_15ecf.dir/build.make CMakeFiles/cmTC_15ecf.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_81b32.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_81b32.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_81b32
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_81b32.dir/link.txt --verbose=1
-/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_81b32.dir/CMakeCCompilerABI.c.o  -o cmTC_81b32 
+Building C object CMakeFiles/cmTC_15ecf.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_15ecf.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_15ecf
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_15ecf.dir/link.txt --verbose=1
+/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_15ecf.dir/CMakeCCompilerABI.c.o  -o cmTC_15ecf 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper
@@ -61,9 +61,9 @@ Thread model: posix
 gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_81b32' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cctj72Li.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_81b32 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_81b32.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_81b32' '-mtune=generic' '-march=x86-64'
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_15ecf' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccWCL922.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_15ecf /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_15ecf.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_15ecf' '-mtune=generic' '-march=x86-64'
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
@@ -71,14 +71,14 @@ Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_81b32/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_81b32.dir/build.make CMakeFiles/cmTC_81b32.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_15ecf/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_15ecf.dir/build.make CMakeFiles/cmTC_15ecf.dir/build]
   ignore line: [make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_81b32.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_81b32.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_81b32]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_81b32.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_81b32.dir/CMakeCCompilerABI.c.o  -o cmTC_81b32 ]
+  ignore line: [Building C object CMakeFiles/cmTC_15ecf.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_15ecf.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_15ecf]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_15ecf.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_15ecf.dir/CMakeCCompilerABI.c.o  -o cmTC_15ecf ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
@@ -90,13 +90,13 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_81b32' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cctj72Li.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_81b32 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_81b32.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_15ecf' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccWCL922.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_15ecf /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_15ecf.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/cctj72Li.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccWCL922.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -115,7 +115,7 @@ Parsed C implicit link information from above output:
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_81b32] ==> ignore
+    arg [cmTC_15ecf] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
@@ -127,7 +127,7 @@ Parsed C implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_81b32.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_15ecf.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
@@ -159,14 +159,14 @@ Parsed C implicit link information from above output:
 Detecting C [-std=c11] compiler features compiled with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_3f8cb/fast"
-/usr/bin/make -f CMakeFiles/cmTC_3f8cb.dir/build.make CMakeFiles/cmTC_3f8cb.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_fe391/fast"
+/usr/bin/make -f CMakeFiles/cmTC_fe391.dir/build.make CMakeFiles/cmTC_fe391.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_3f8cb.dir/feature_tests.c.o
-/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_3f8cb.dir/feature_tests.c.o   -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.c
-Linking C executable cmTC_3f8cb
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3f8cb.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_3f8cb.dir/feature_tests.c.o  -o cmTC_3f8cb 
+Building C object CMakeFiles/cmTC_fe391.dir/feature_tests.c.o
+/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_fe391.dir/feature_tests.c.o   -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.c
+Linking C executable cmTC_fe391
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fe391.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_fe391.dir/feature_tests.c.o  -o cmTC_fe391 
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
@@ -179,14 +179,14 @@ make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arma
 Detecting C [-std=c99] compiler features compiled with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_6e0a9/fast"
-/usr/bin/make -f CMakeFiles/cmTC_6e0a9.dir/build.make CMakeFiles/cmTC_6e0a9.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_dc5ae/fast"
+/usr/bin/make -f CMakeFiles/cmTC_dc5ae.dir/build.make CMakeFiles/cmTC_dc5ae.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_6e0a9.dir/feature_tests.c.o
-/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_6e0a9.dir/feature_tests.c.o   -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.c
-Linking C executable cmTC_6e0a9
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6e0a9.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_6e0a9.dir/feature_tests.c.o  -o cmTC_6e0a9 
+Building C object CMakeFiles/cmTC_dc5ae.dir/feature_tests.c.o
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_dc5ae.dir/feature_tests.c.o   -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.c
+Linking C executable cmTC_dc5ae
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dc5ae.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_dc5ae.dir/feature_tests.c.o  -o cmTC_dc5ae 
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
@@ -199,14 +199,14 @@ make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arma
 Detecting C [-std=c90] compiler features compiled with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_b4a12/fast"
-/usr/bin/make -f CMakeFiles/cmTC_b4a12.dir/build.make CMakeFiles/cmTC_b4a12.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_3153e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_3153e.dir/build.make CMakeFiles/cmTC_3153e.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_b4a12.dir/feature_tests.c.o
-/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_b4a12.dir/feature_tests.c.o   -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.c
-Linking C executable cmTC_b4a12
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b4a12.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_b4a12.dir/feature_tests.c.o  -o cmTC_b4a12 
+Building C object CMakeFiles/cmTC_3153e.dir/feature_tests.c.o
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_3153e.dir/feature_tests.c.o   -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.c
+Linking C executable cmTC_3153e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3153e.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_3153e.dir/feature_tests.c.o  -o cmTC_3153e 
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
@@ -217,28 +217,28 @@ make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arma
 Determining if the CXX compiler works passed with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_5dcae/fast"
-/usr/bin/make -f CMakeFiles/cmTC_5dcae.dir/build.make CMakeFiles/cmTC_5dcae.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_16027/fast"
+/usr/bin/make -f CMakeFiles/cmTC_16027.dir/build.make CMakeFiles/cmTC_16027.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_5dcae.dir/testCXXCompiler.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTC_5dcae.dir/testCXXCompiler.cxx.o -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_5dcae
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5dcae.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_5dcae.dir/testCXXCompiler.cxx.o  -o cmTC_5dcae 
+Building CXX object CMakeFiles/cmTC_16027.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTC_16027.dir/testCXXCompiler.cxx.o -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_16027
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_16027.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_16027.dir/testCXXCompiler.cxx.o  -o cmTC_16027 
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_2a891/fast"
-/usr/bin/make -f CMakeFiles/cmTC_2a891.dir/build.make CMakeFiles/cmTC_2a891.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_7674b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7674b.dir/build.make CMakeFiles/cmTC_7674b.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_2a891.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++     -o CMakeFiles/cmTC_2a891.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_2a891
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2a891.dir/link.txt --verbose=1
-/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_2a891.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_2a891 
+Building CXX object CMakeFiles/cmTC_7674b.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++     -o CMakeFiles/cmTC_7674b.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_7674b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7674b.dir/link.txt --verbose=1
+/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_7674b.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_7674b 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper
@@ -250,9 +250,9 @@ Thread model: posix
 gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2a891' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc0F8tiK.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_2a891 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_2a891.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2a891' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_7674b' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc915r0t.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_7674b /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_7674b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_7674b' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
@@ -260,14 +260,14 @@ Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_2a891/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_2a891.dir/build.make CMakeFiles/cmTC_2a891.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_7674b/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_7674b.dir/build.make CMakeFiles/cmTC_7674b.dir/build]
   ignore line: [make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_2a891.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_2a891.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_2a891]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2a891.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_2a891.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_2a891 ]
+  ignore line: [Building CXX object CMakeFiles/cmTC_7674b.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_7674b.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_7674b]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7674b.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_7674b.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_7674b ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
@@ -279,13 +279,13 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2a891' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc0F8tiK.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_2a891 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_2a891.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_7674b' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc915r0t.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_7674b /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_7674b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/cc0F8tiK.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/cc915r0t.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -304,7 +304,7 @@ Parsed CXX implicit link information from above output:
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_2a891] ==> ignore
+    arg [cmTC_7674b] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
@@ -316,7 +316,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_2a891.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_7674b.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -344,14 +344,14 @@ Parsed CXX implicit link information from above output:
 Detecting CXX [-std=c++1z] compiler features compiled with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_5c762/fast"
-/usr/bin/make -f CMakeFiles/cmTC_5c762.dir/build.make CMakeFiles/cmTC_5c762.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_23e02/fast"
+/usr/bin/make -f CMakeFiles/cmTC_23e02.dir/build.make CMakeFiles/cmTC_23e02.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_5c762.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_5c762.dir/feature_tests.cxx.o -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_5c762
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5c762.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_5c762.dir/feature_tests.cxx.o  -o cmTC_5c762 
+Building CXX object CMakeFiles/cmTC_23e02.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_23e02.dir/feature_tests.cxx.o -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_23e02
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_23e02.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_23e02.dir/feature_tests.cxx.o  -o cmTC_23e02 
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
@@ -417,14 +417,14 @@ make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arma
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_19db3/fast"
-/usr/bin/make -f CMakeFiles/cmTC_19db3.dir/build.make CMakeFiles/cmTC_19db3.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_cf3d0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_cf3d0.dir/build.make CMakeFiles/cmTC_cf3d0.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_19db3.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_19db3.dir/feature_tests.cxx.o -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_19db3
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_19db3.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_19db3.dir/feature_tests.cxx.o  -o cmTC_19db3 
+Building CXX object CMakeFiles/cmTC_cf3d0.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_cf3d0.dir/feature_tests.cxx.o -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_cf3d0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cf3d0.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_cf3d0.dir/feature_tests.cxx.o  -o cmTC_cf3d0 
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
@@ -490,14 +490,14 @@ make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arma
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_4ff2e/fast"
-/usr/bin/make -f CMakeFiles/cmTC_4ff2e.dir/build.make CMakeFiles/cmTC_4ff2e.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_179c5/fast"
+/usr/bin/make -f CMakeFiles/cmTC_179c5.dir/build.make CMakeFiles/cmTC_179c5.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_4ff2e.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_4ff2e.dir/feature_tests.cxx.o -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_4ff2e
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4ff2e.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_4ff2e.dir/feature_tests.cxx.o  -o cmTC_4ff2e 
+Building CXX object CMakeFiles/cmTC_179c5.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_179c5.dir/feature_tests.cxx.o -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_179c5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_179c5.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_179c5.dir/feature_tests.cxx.o  -o cmTC_179c5 
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
@@ -563,14 +563,14 @@ make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arma
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_be590/fast"
-/usr/bin/make -f CMakeFiles/cmTC_be590.dir/build.make CMakeFiles/cmTC_be590.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_2e0b4/fast"
+/usr/bin/make -f CMakeFiles/cmTC_2e0b4.dir/build.make CMakeFiles/cmTC_2e0b4.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_be590.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_be590.dir/feature_tests.cxx.o -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_be590
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_be590.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_be590.dir/feature_tests.cxx.o  -o cmTC_be590 
+Building CXX object CMakeFiles/cmTC_2e0b4.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_2e0b4.dir/feature_tests.cxx.o -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_2e0b4
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2e0b4.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_2e0b4.dir/feature_tests.cxx.o  -o cmTC_2e0b4 
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
@@ -634,28 +634,28 @@ make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arma
 Determining if the include file pthread.h exists passed with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_40c52/fast"
-/usr/bin/make -f CMakeFiles/cmTC_40c52.dir/build.make CMakeFiles/cmTC_40c52.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_6084c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_6084c.dir/build.make CMakeFiles/cmTC_6084c.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_40c52.dir/CheckIncludeFile.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_40c52.dir/CheckIncludeFile.c.o   -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-Linking C executable cmTC_40c52
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_40c52.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_40c52.dir/CheckIncludeFile.c.o  -o cmTC_40c52 
+Building C object CMakeFiles/cmTC_6084c.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_6084c.dir/CheckIncludeFile.c.o   -c /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_6084c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6084c.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_6084c.dir/CheckIncludeFile.c.o  -o cmTC_6084c 
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
 Determining if the function pthread_create exists in the pthread passed with the following output:
 Change Dir: /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_957fb/fast"
-/usr/bin/make -f CMakeFiles/cmTC_957fb.dir/build.make CMakeFiles/cmTC_957fb.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_112a1/fast"
+/usr/bin/make -f CMakeFiles/cmTC_112a1.dir/build.make CMakeFiles/cmTC_112a1.dir/build
 make[1]: Entering directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_957fb.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_957fb.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
-Linking C executable cmTC_957fb
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_957fb.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_957fb.dir/CheckFunctionExists.c.o  -o cmTC_957fb -lpthread 
+Building C object CMakeFiles/cmTC_112a1.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_112a1.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_112a1
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_112a1.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_112a1.dir/CheckFunctionExists.c.o  -o cmTC_112a1 -lpthread 
 make[1]: Leaving directory '/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/CMakeFiles/CMakeTmp'
 
 
