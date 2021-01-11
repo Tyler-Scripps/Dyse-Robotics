@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_control
 include CMakeFiles/clean_test_results.dir/progress.make
 
 CMakeFiles/clean_test_results:
-	/usr/bin/python2 /opt/ros/melodic/share/catkin/cmake/test/remove_test_results.py /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/test_results
+	/home/m_dyse/pyenvs/Arman_env/bin/python3 /opt/ros/melodic/share/catkin/cmake/test/remove_test_results.py /home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/test_results
 
 clean_test_results: CMakeFiles/clean_test_results
 clean_test_results: CMakeFiles/clean_test_results.dir/build.make

@@ -1,5 +1,7 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from Transformer import Transformer
+from mpl_toolkits.mplot3d import Axes3D
 
 class Arm:
 	def __init__(self, init_joint_poses=None, motor_spin=[1,1,-1,-1,1], restrictions=None, default_joint_angles=[90, 135, 45, 0, 90]):

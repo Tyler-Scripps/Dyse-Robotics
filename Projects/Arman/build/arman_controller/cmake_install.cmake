@@ -129,6 +129,10 @@ file(INSTALL DESTINATION "/home/m_dyse/Dyse-Robotics/Projects/Arman/install" TYP
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arman_controller/srv" TYPE FILE FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/src/arman_controller/srv/ArmanDriver.srv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/catkin_generated/installspace/arman_controller.pc")
 endif()
 
@@ -144,15 +148,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/arman_controller" TYPE PROGRAM FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/catkin_generated/installspace/Arm.py")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/arman_controller" TYPE PROGRAM FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/catkin_generated/installspace/control.py")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/arman_controller" TYPE PROGRAM FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/catkin_generated/installspace/simple_render.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/arman_controller" TYPE PROGRAM FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/catkin_generated/installspace/arman_driver.py")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
