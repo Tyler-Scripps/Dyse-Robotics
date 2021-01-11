@@ -1,0 +1,13 @@
+[31m[1mCMake Error[0m at /opt/ros/melodic/share/catkin/cmake/assert.cmake:20 (message):
+
+
+  Assertion failed: file '/usr/lib/x86_64-linux-gnu/librt.so' does not exist.
+  Message: RT Library
+
+[36mCall Stack (most recent call first):[0m
+  /opt/ros/melodic/share/catkin/cmake/tools/rt.cmake:44 (assert_file_exists)
+  /opt/ros/melodic/share/catkin/cmake/all.cmake:164 (include)
+  /opt/ros/melodic/share/catkin/cmake/catkinConfig.cmake:20 (include)
+  CMakeLists.txt:10 (find_package)
+
+

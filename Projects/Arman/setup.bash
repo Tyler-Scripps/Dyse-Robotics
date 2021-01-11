@@ -53,18 +53,25 @@ else
 fi
 
 # get user inputs, null will quit
-while getopts e:name:p: opt
+while getopts e:n:p: opt
 do
 	case ${opt} in
     	e) ENV_PATH=${OPTARG} ;;
-		name) ENV_NAME=${OPTARG} ;;
-		p) purgeFunction ;;
+	n) ENV_NAME=${OPTARG} ;;
+	p) purgeFunction ;;
     	?) helpFunction ;; # Print helpFunction in case parameter is non-existent
 	esac
 done
 
 # force user to provide python environment path
 checkInputs
+
+if [[ ${DIR} == */Dyse-Robotics/Projects/* ]] || [[ ${DIR} == */dyse-robotics/Projects/* ]]; then
+	echo [${ME}] pulling Dyse-Tools ;
+	cp ../../dyse_tools/*.py arman_tools
+else
+	echo [${ME}] Isolated project, no tools available -e\n\t{$DIR};
+fi
 
 # install python3 dependencies
 sudo apt-get update
@@ -78,9 +85,11 @@ PYTHONPATH=/opt/ros/melodic/lib/python2.7/dist-packages
 
 # initialize the workspace
 echo [${ME}] initializing catkin workspace with ${ENV_PATH}/${ENV_NAME}/bin/python3 as executable path
-catkin_make -DPYTHON_EXECUTABLE=${ENV_PATH}/${ENV_NAME}/bin/python3
+catkin config --init
+catkin config -DPYTHON_EXECUTABLE=${ENV_PATH}/${ENV_NAME}/bin/python3
+catkin build
 
-echo "alias load_arman='PYTHONPATH=$PYTHONPATH:${DIR}/arman_tools && source ${DIR}/devel/setup.bash && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
+echo "alias load_arman='export PYTHONPATH=$PYTHONPATH:${DIR}/arman_tools && source ${DIR}/devel/setup.bash && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
 
 echo
 echo [${ME}] Successful Install

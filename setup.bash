@@ -18,7 +18,7 @@ helpFunction()
    echo -e "\n \t-e Decides the location of the default python3 environment for this project"
    echo -e "\t-n Decides the name of the python env the default is Dyse-env"
    echo -e "\t-p will purge the project setup"
-   echo -e "\t-c creates a new project in the projects folder"
+   echo -e "\t-c creates a new project in the Projects folder"
    echo -e "\t-g will load a project from git\n"
    exit 1 # Exit script after printing help
 }
@@ -76,12 +76,12 @@ checkInputs
 
 if [ $PROJECT_NAME == null ]; then
 	# install python3 dependencies
-	sudo apt-get update 
-	python3 -m venv ${ENV_PATH}/${ENV_NAME} 
-	source ${ENV_PATH}/${ENV_NAME}/bin/activate 
-	echo [${ME}] Creating your default environment 
-	pip install --upgrade pip 
-	pip install --ignore-installed -r ${DIR}/python3_requirements.txt 
+	sudo apt-get update
+	python3 -m venv ${ENV_PATH}/${ENV_NAME}
+	source ${ENV_PATH}/${ENV_NAME}/bin/activate
+	echo [${ME}] Creating your default environment
+	pip install --upgrade pip
+	pip install --ignore-installed -r ${DIR}/python3_requirements.txt
 	deactivate
 
 	echo "alias load_tools='PYTHONPATH=$PYTHONPATH:${DIR}/dyse_tools && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
