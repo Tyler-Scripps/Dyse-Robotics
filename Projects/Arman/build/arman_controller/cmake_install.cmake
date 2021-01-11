@@ -129,11 +129,43 @@ file(INSTALL DESTINATION "/home/m_dyse/Dyse-Robotics/Projects/Arman/install" TYP
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arman_controller/srv" TYPE FILE FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/src/arman_controller/srv/ArmanDriver.srv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arman_controller/srv" TYPE FILE FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/src/arman_controller/srv/ArmanDriverRequest.srv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arman_controller/cmake" TYPE FILE FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/catkin_generated/installspace/arman_controller-msg-paths.cmake")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/include/arman_controller")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/share/roseus/ros/arman_controller")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/share/common-lisp/ros/arman_controller")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/share/gennodejs/ros/arman_controller")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  execute_process(COMMAND "/home/m_dyse/pyenvs/Arman_env/bin/python3" -m compileall "/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/lib/python3/dist-packages/arman_controller")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/lib/python3/dist-packages/arman_controller")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/catkin_generated/installspace/arman_controller.pc")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/arman_controller/cmake" TYPE FILE FILES "/home/m_dyse/Dyse-Robotics/Projects/Arman/build/arman_controller/catkin_generated/installspace/arman_controller-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

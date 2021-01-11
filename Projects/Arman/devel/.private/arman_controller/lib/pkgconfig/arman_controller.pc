@@ -3,6 +3,6 @@ prefix=/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller
 Name: arman_controller
 Description: Description of arman_controller
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/m_dyse/Dyse-Robotics/Projects/Arman/devel/.private/arman_controller/include
 Libs: -L${prefix}/lib 
-Requires: 
+Requires: message_runtime
