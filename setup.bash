@@ -81,7 +81,7 @@ if [ $PROJECT_NAME == null ]; then
 	python3 -m venv ${ENV_PATH}/${ENV_NAME}
 	source ${ENV_PATH}/${ENV_NAME}/bin/activate
 	echo [${ME}] Creating your default environment: ...
-	pip install --upgrade pip
+	
 	pip install --ignore-installed -r ${DIR}/python3_requirements.txt
 	deactivate
 	export PYTHONPATH=/opt/ros/melodic/lib/python2.7/dist-packages:${DIR}/dyse_tools
