@@ -6,7 +6,7 @@
 # initialize some variables for setup
 DIR=$PWD
 ME=Installer
-ENV_NAME=Dyse-env
+ENV_NAME=Dyse_env
 FROM_SAVE=false
 PROJECT_NAME=null
 
@@ -77,10 +77,11 @@ checkInputs
 if [ $PROJECT_NAME == null ]; then
 	# install python3 dependencies
 	sudo apt-get update
+	sudo apt-get install python3-venv
 	python3 -m venv ${ENV_PATH}/${ENV_NAME}
 	source ${ENV_PATH}/${ENV_NAME}/bin/activate
 	echo [${ME}] Creating your default environment: ...
-	pip install --upgrade pip
+	
 	pip install --ignore-installed -r ${DIR}/python3_requirements.txt
 	deactivate
 	export PYTHONPATH=/opt/ros/melodic/lib/python2.7/dist-packages:${DIR}/dyse_tools
@@ -115,9 +116,6 @@ else
 	git remote add origin git@github.com:mithellscott/${PROJECT_NAME}.git
 	git push -u origin master
 fi
-
-git add .
-git commit -m "[$ME] Auto-Commit"
 
 echo " "
 echo [${ME}] Setup Successful
