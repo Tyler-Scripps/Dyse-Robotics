@@ -3,120 +3,204 @@
 # This file adds the tools package to PYTHONPATH
 # it also creates an alias for adding the package
 
-# initialize some variables for setup
+############
+# Parameters
+############
+
 DIR=$PWD
-ME=Installer
-ENV_NAME=Dyse_env
-FROM_SAVE=false
-PROJECT_NAME=null
+ME='SETUP BOI'
+PROJECT_MASTER=
 
+declare -A PARAMS
+PARAMS[PROJECT_NAME]=Dyse-Robotics
 
-echo [${ME}] installing from ${DIR}
+##############################
+# Assistive/Diagnostic methods
+##############################
+
+logInfo()
+{
+	for val in "$@"
+	do
+		echo -e "[$ME]\t${val}"
+	done
+}
 
 helpFunction()
 {
-   echo -e "\n \t-e Decides the location of the default python3 environment for this project"
-   echo -e "\t-n Decides the name of the python env the default is Dyse-env"
-   echo -e "\t-p will purge the project setup"
-   echo -e "\t-c creates a new project in the Projects folder"
-   echo -e "\t-g will load a project from git\n"
-   exit 1 # Exit script after printing help
+	echo -e "[$ME]\tUsage and Hints:\n"
+	echo -e "\t[Option]\t Description"
+	echo -e "\n\t-e\t specifies the path to the python3 environment for this project\n"
+	echo -e "\t-n\t decides the name of the python env\n"
+	echo -e "\t-p\t declares the name of the project, the default is Dyse-Robotics\n"
+	echo -e "\t-c\t specifies the path to a new project relative to this script\n" 							# Master Only
+	echo -e "\t-g\t specifies the extension of a git repo to attach to the project's root (make sure to update .gitignore before)\n"
+	echo -e "\t-o\t specifies file path to load the above parameters from\n"
+	echo -e "\t-b\t will build the project with catkin build\n"
+	echo -e "\t-h\t prints this help message (program will exit after)\n"
+	exit 1 # Exit script after printing help
 }
 
-checkInputs()
+####################
+# Validating methods
+####################
+
+isEmptyInput()
 {
-	if [ -z ${ENV_PATH} ]; then
-		echo -e [${ME}] Missing default python3 environment path
+	# Deprecated
+	for val in "$@"
+	do
+		if [[ -z $val ]]; then
+			echo -e "[$ME]\tMissing $val"
+			helpFunction
+		fi
+	done
+}
+
+isRootConnected()
+{
+	# make sure that the script is executing from the projects root
+	if [[ $DIR = */$1 ]]; then
+		logInfo  "Confirmed $DIR is your project's root"
+	else
+		logInfo "Could not find your project's root directory"
+		logInfo "Project Name: $1"
+		logInfo "Current directory: $DIR"
 		helpFunction
 	fi
 }
 
+####################
+# Functional methods
+####################
+
 purgeFunction()
 {
-	checkInputs
-	echo
-	echo [${ME}] purging the setup ...
-	echo
-	if [[ ${PTHONPATH} == */${ENV_PATH}/* ]]; then
-		deactivate
-	fi
-	PYTHONPATH=
-	echo -e [${ME}] removing:" \n\t $ENV_PATH/$ENV_NAME"
-	sudo rm -rf ${ENV_PATH}/${ENV_NAME}
-	sed -i '/dyse/d' ~/.bashrc
-	echo
-	echo [${ME}] Done purging!
-	echo
-	exit 1
+	for val in "$@"
+	do
+		if [[ -d $val ]]; then
+			echo -e "\n[$ME]\tPurging your workspace of $val ...\n"
+			sudo rm -rf $val
+		else
+			echo -e "\n[$ME]\t$val does not exist, skipping ...\n"
+		fi	
+	done
+	
+	echo "\n[$ME]\tDone purging!"
 }
 
-# make sure that the script is executing from Rofous root
-if [[ ${DIR} == */Dyse-Robotics ]]; then
-	echo [${ME}] Initializing repository
-else
-	echo [${ME}] Please run this script from the top directory of this repository
-	helpFunction
-fi
+aptWrap()
+{
+	sudo apt-get update
+	$1 sudo apt-get install $2
+}
 
-# get user inputs, null will quit
-while getopts e:n:p:c:g: opt
+initPy3Env()
+{
+	python3 -m venv $1
+	if [[ -f python3_requirements.txt ]]; then
+		source $1/bin/activate
+		pip install -r python3_requirements.txt
+		deactivate
+	fi
+}
+
+attachRemote()
+{
+	git init
+	git add .
+	git commit -m "[$ME]\tAutomated commit"
+	git remote add origin "https://github.com/$1"
+	git pull origin master
+}
+
+spawnProject()																							# Master Only
+{																										# Master Only
+	if [[ ! -d $1/$2 ]]; then																			# Master Only
+		logInfo "Creating new project space"															# Master Only
+		mkdir -p $1/$2 																					# Master Only
+	fi 																									# Master Only
+	sed /"# Master Only"/d $DIR/setup.bash >> $DIR/$1/$2/setup.bash 									# Master Only
+	sed -i /PARAMS[ENV_NAME]=Dyse_env/c\PARAMS[ENV_NAME]=$2_env $DIR/$1/$2/setup.bash 					# Master Only
+	sed -i /PROJECT_MASTER=/c\PROJECT_MASTER=$DIR $DIR/$1/$2/setup.bash 								# Master Only
+	chmod +x $DIR/$1/$2/setup.bash 																		# Master Only
+	.$DIR/$1/$2/setup.bash -e $3 -n $2_env -p $2 -g $4 													# Master Only
+	exit 1																								# Master Only
+}																										# Master Only
+
+loadConfig()
+{
+	logInfo "loadConfig Not Implemented"
+	helpFunction
+}
+
+makeProjectSpace()
+{
+	logInfo "Working from $DIR"
+
+	if [[ -n ${PARAMS[CONFIG]} ]]; then
+		loadConfig ${PARAMS[CONFIG]}
+	fi
+
+	if [[ -n ${PARAMS[DIR_EXT]} ]]; then																# Master Only
+		logInfo "Checking for isolated project space"													# Master Only
+		spawnProject ${PARAMS[DIR_EXT]} ${PARAMS[PROJECT_NAME]} ${PARAMS[ENV_PATH]} ${PARAMS[GIT_EXT]} 	# Master Only
+	fi 																									# Master Only
+
+	logInfo "Asserting runtime location"
+	isRootConnected ${PARAMS[PROJECT_NAME]}
+
+	if [[ -n ${PARAMS[GIT_EXT]} ]]; then
+		logInfo "Attaching remote git repository"
+		attachRemote ${PARAMS[GIT_EXT]}
+	fi
+
+	if [[ -f dependencies.txt ]]; then
+		logInfo "Installing dependencies"
+		aptWrap xargs <dependencies.txt
+	fi
+
+	if [[ -n ${PARAMS[ENV_PATH]} && -n ${PARAMS[ENV_NAME]} ]]; then
+			logInfo "Creating Python3 Environment"
+			initPy3Env ${PARAMS[ENV_PATH]}/${PARAMS[ENV_NAME]}
+	fi
+
+	if [[ -n $1 ]]; then
+		logInfo "Building your workspace"
+		if [[ ! -d src ]]; then
+			mkdir src
+		fi
+		catkin config -init
+		if [[ -n ${PARAMS[ENV_PATH]} && -n ${PARAMS[ENV_NAME]} ]]; then
+			catkin config -DPYTHON_EXECUTABLE=${PARAMS[ENV_PATH]}/${PARAMS[ENV_NAME]}/bin/python3
+		else
+			catkin config -DPYTHON_EXECUTABLE=/usr/bin/python3
+		fi
+		catkin build ${PARAMS[BUILD]}
+	fi
+
+	logInfo "Project space successfully Built!"
+}
+
+
+################
+# Process script
+################
+
+logInfo "Filling parameter table"
+while getopts "e:n:p:c:g:o:bh:" opt;
 do
-	case ${opt} in
-    	e) ENV_PATH=${OPTARG} ;;
-		n) ENV_NAME=${OPTARG} ;;
-		p) purgeFunction ;;
-		c) PROJECT_NAME=${OPTARG} ;;
-		g) PROJECT_NAME=${OPTARG} FROM_SAVE=true;;
-    	?) helpFunction ;; # Print helpFunction in case parameter is non-existent
+	case $opt in
+		e) PARAMS[ENV_PATH]=$OPTARG ;;
+		n) PARAMS[ENV_NAME]=$OPTARG ;;
+		p) PARAMS[PROJECT_NAME]=$OPTARG ;;
+		c) PARAMS[DIR_EXT]=$OPTARG ;;																	# Master Only
+		g) PARAMS[GIT_EXT]=$OPTARG ;;
+		o) PARAMS[CONFIG]=$OPTARG ;;
+		b) PARAMS[BUILD]=$OPTARG DO_BUILD=1 ;;
+		h) helpFunction ;;
+		?) loadConfig NotImplemented;;
 	esac
 done
 
-# force user to provide python environment path
-checkInputs
-
-if [ $PROJECT_NAME == null ]; then
-	# install python3 dependencies
-	sudo apt-get update
-	sudo apt-get install python3-venv
-	python3 -m venv ${ENV_PATH}/${ENV_NAME}
-	source ${ENV_PATH}/${ENV_NAME}/bin/activate
-	echo [${ME}] Creating your default environment: ...
-	
-	pip install --ignore-installed -r ${DIR}/python3_requirements.txt
-	deactivate
-	export PYTHONPATH=/opt/ros/melodic/lib/python2.7/dist-packages:${DIR}/dyse_tools
-	echo "alias load_tools='PYTHONPATH=$PYTHONPATH && source ${ENV_PATH}/${ENV_NAME}/bin/activate'" >> ~/.bashrc
-
-elif [ ${FROM_SAVE} == true ]; then
-	echo [${ME}] cloning ${PROJECT_NAME}: ...
-	cd Projects
-	git clone https://github.com/mithellscott/${PROJECT_NAME}
-	cd ${PROJECT_NAME}
-	./setup.bash -e $ENV_PATH -n ${PROJECT_NAME}_env
-
-else
-	echo [${ME}] creating ${PROJECT_NAME}: ...
-	cd Projects
-	mkdir ${PROJECT_NAME}
-	cd ${PROJECT_NAME}
-	mkdir Python3_Notebooks
-	cp ../../setup_template.bash setup.bash
-	sed -i /PROJECT_NAME=Sample/c\PROJECT_NAME=${PROJECT_NAME}
-	chmod +x setup.bash
-
-	echo [${ME}] configuring catkin: ...
-	catkin config -init
-	catkin config -DPYTHON_EXECUTABLE=${ENV_PATH}/${ENV_NAME}/bin/python3
-	catkin build
-
-
-	git init
-	git add .
-	git commit -m "init commmit"
-	git remote add origin git@github.com:mithellscott/${PROJECT_NAME}.git
-	git push -u origin master
-fi
-
-echo " "
-echo [${ME}] Setup Successful
-echo " "
+makeProjectSpace DO_BUILD
