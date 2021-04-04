@@ -128,7 +128,7 @@ spawnProject()																							# Master Only
 	sed -i /PARAMS[ENV_NAME]=Dyse_env/c\PARAMS[ENV_NAME]=$2_env $DIR/$1/$2/setup.bash 					# Master Only
 	sed -i /PROJECT_MASTER=/c\PROJECT_MASTER=$DIR $DIR/$1/$2/setup.bash 								# Master Only
 	chmod +x $DIR/$1/$2/setup.bash 																		# Master Only
-	.$DIR/$1/$2/setup.bash -e $3 -n $2_env -p $2 -g $4 													# Master Only
+	./$1/$2/setup.bash -e $3 -n $2_env -p $2 -g $4 													# Master Only
 	exit 1																								# Master Only
 }																										# Master Only
 
