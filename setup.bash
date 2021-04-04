@@ -100,7 +100,7 @@ initPy3Env()
 	python3 -m venv $1
 	if [[ -f python3_requirements.txt ]]; then
 		source $1/bin/activate
-		pip install -r python3_requirements.txt
+		pip install -r config/python3_requirements.txt
 		deactivate
 	fi
 }
@@ -186,7 +186,7 @@ makeProjectSpace()
 
 	if [[ -f dependencies.txt ]]; then
 		logInfo "Installing dependencies"
-		aptWrap xargs <dependencies.txt
+		aptWrap xargs <config/dependencies.txt
 	fi
 
 	if [[ -n ${PARAMS[ENV_PATH]} && -n ${PARAMS[ENV_NAME]} ]]; then
