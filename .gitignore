@@ -1,4 +1,4 @@
 build
 devel
 logs
-.catkin*
+.catkin_tools
