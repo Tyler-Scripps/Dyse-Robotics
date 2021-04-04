@@ -212,4 +212,4 @@ do
 	esac
 done
 
-makeProjectSpace $DO_BUILD
+makeProjectSpace ${PARAMS[DO_BUILD]}
