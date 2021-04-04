@@ -13,6 +13,7 @@ PROJECT_MASTER=
 
 declare -A PARAMS
 PARAMS[PROJECT_NAME]=Dyse-Robotics
+PARAMS[CONFIG]=Dyse-Robotics-config.txt
 
 ##############################
 # Assistive/Diagnostic methods
@@ -107,10 +108,13 @@ initPy3Env()
 
 attachRemote()
 {
-	git init
-	git add .
-	git commit -m "[$ME]\tAutomated commit"
-	git remote add origin "https://github.com/$1"
+	if [[ ! -f *.git* ]]; then
+		git init
+		git add .
+		git commit -m "[$ME]\tAutomated commit"
+		git remote add origin "https://github.com/$1"
+	fi
+
 	git pull origin master
 }
 
@@ -130,8 +134,13 @@ spawnProject()																							# Master Only
 
 loadConfig()
 {
-	logInfo "loadConfig Not Implemented"
-	helpFunction
+	if [[ ! -f $1 ]]; then
+		helpFunction
+	fi
+	while IFS= read -r line; do
+    	PARAMS[${line%%=*}]=${line#*=}
+	done < $1
+
 }
 
 makeProjectSpace()
@@ -141,7 +150,7 @@ makeProjectSpace()
 	if [[ -n ${PARAMS[CONFIG]} ]]; then
 		loadConfig ${PARAMS[CONFIG]}
 	fi
-
+	logInfo ${PARAMS[@]}
 	if [[ -n ${PARAMS[DIR_EXT]} ]]; then																# Master Only
 		logInfo "Checking for isolated project space"													# Master Only
 		spawnProject ${PARAMS[DIR_EXT]} ${PARAMS[PROJECT_NAME]} ${PARAMS[ENV_PATH]} ${PARAMS[GIT_EXT]} 	# Master Only
@@ -164,8 +173,8 @@ makeProjectSpace()
 			logInfo "Creating Python3 Environment"
 			initPy3Env ${PARAMS[ENV_PATH]}/${PARAMS[ENV_NAME]}
 	fi
-
-	if [[ -n $1 ]]; then
+	logInfo $1
+	if [[ $1 = true ]]; then
 		logInfo "Building your workspace"
 		if [[ ! -d src ]]; then
 			mkdir src
@@ -188,7 +197,7 @@ makeProjectSpace()
 ################
 
 logInfo "Filling parameter table"
-while getopts "e:n:p:c:g:o:bh:" opt;
+while getopts "e:n:p:c:g:o:b h:" opt;
 do
 	case $opt in
 		e) PARAMS[ENV_PATH]=$OPTARG ;;
@@ -197,10 +206,10 @@ do
 		c) PARAMS[DIR_EXT]=$OPTARG ;;																	# Master Only
 		g) PARAMS[GIT_EXT]=$OPTARG ;;
 		o) PARAMS[CONFIG]=$OPTARG ;;
-		b) PARAMS[BUILD]=$OPTARG DO_BUILD=1 ;;
+		b) PARAMS[BUILD]=$OPTARG PARAMS[DO_BUILD]=true ;;
 		h) helpFunction ;;
-		?) loadConfig NotImplemented;;
+		?) helpFuncion ;;
 	esac
 done
 
-makeProjectSpace DO_BUILD
+makeProjectSpace $DO_BUILD
