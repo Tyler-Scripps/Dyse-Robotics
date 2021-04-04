@@ -173,8 +173,8 @@ makeProjectSpace()
 			logInfo "Creating Python3 Environment"
 			initPy3Env ${PARAMS[ENV_PATH]}/${PARAMS[ENV_NAME]}
 	fi
-	logInfo $1
-	if [[ $1 = true ]]; then
+
+	if [[ ${PARAMS[DO_BUILD]} = true ]]; then
 		logInfo "Building your workspace"
 		if [[ ! -d src ]]; then
 			mkdir src
@@ -212,4 +212,4 @@ do
 	esac
 done
 
-makeProjectSpace ${PARAMS[DO_BUILD]}
+makeProjectSpace
