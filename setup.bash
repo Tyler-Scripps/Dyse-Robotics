@@ -11,9 +11,8 @@ DIR=$PWD
 ME='SETUP BOI'
 PROJECT_MASTER=
 
-declare -A PARAMS
+declare -gA PARAMS
 PARAMS[PROJECT_NAME]=Dyse-Robotics
-PARAMS[CONFIG]=Dyse-Robotics-config.txt
 
 ##############################
 # Assistive/Diagnostic methods
@@ -34,7 +33,7 @@ helpFunction()
 	echo -e "\n\t-e\t specifies the path to the python3 environment for this project\n"
 	echo -e "\t-n\t decides the name of the python env\n"
 	echo -e "\t-p\t declares the name of the project, the default is Dyse-Robotics\n"
-	echo -e "\t-c\t specifies the path to a new project relative to this script\n" 							# Master Only
+	echo -e "\t-c\t specifies the path to a new project relative to this script\n" 						# Master Only
 	echo -e "\t-g\t specifies the extension of a git repo to attach to the project's root (make sure to update .gitignore before)\n"
 	echo -e "\t-o\t specifies file path to load the above parameters from\n"
 	echo -e "\t-b\t will build the project with catkin build\n"
@@ -111,11 +110,39 @@ attachRemote()
 	if [[ ! -f *.git* ]]; then
 		git init
 		git add .
-		git commit -m "[$ME]\tAutomated commit"
+		git commit -m "[$ME]    Automated commit"
 		git remote add origin "https://github.com/$1"
 	fi
 
 	git pull origin master
+}
+
+writeConfig()
+{
+	if [[ -n $3 ]]; then
+		filePath=$1/$2/$3
+		echo "PROJECT_NAME=$2" > $filePath
+		logInfo "Writing to $filePath"
+		for key in ${!PARAMS[@]}; 
+		do
+			echo $key=${PARAMS[$key]} >> $filePath
+		done
+	else
+		logInfo "Invalid Config file"
+		helpFunction
+	fi
+}
+
+loadConfig()
+{
+	if [[ ! -f $1 ]]; then
+		logInfo "There does not appear to be a config file"
+		helpFunction
+	else
+		while IFS= read -r line; do
+			PARAMS[${line%%=*}]=${line#*=}
+		done < $1
+	fi
 }
 
 spawnProject()																							# Master Only
@@ -124,36 +151,29 @@ spawnProject()																							# Master Only
 		logInfo "Creating new project space"															# Master Only
 		mkdir -p $1/$2 																					# Master Only
 	fi 																									# Master Only
-	sed /"# Master Only"/d $DIR/setup.bash >> $DIR/$1/$2/setup.bash 									# Master Only
-	sed -i /PARAMS[ENV_NAME]=Dyse_env/c\PARAMS[ENV_NAME]=$2_env $DIR/$1/$2/setup.bash 					# Master Only
-	sed -i /PROJECT_MASTER=/c\PROJECT_MASTER=$DIR $DIR/$1/$2/setup.bash 								# Master Only
-	chmod +x $DIR/$1/$2/setup.bash 																		# Master Only
-	./$1/$2/setup.bash -e $3 -n $2_env -p $2 -g $4 													# Master Only
+	sed /"# Master Only"/d $DIR/setup.bash >> $1/$2/setup.bash 											# Master Only
+	sed -i /PARAMS[ENV_NAME]=Dyse_env/c\PARAMS[ENV_NAME]=$2_env $1/$2/setup.bash 						# Master Only
+	sed -i /PROJECT_MASTER=/c\PROJECT_MASTER=$DIR $1/$2/setup.bash 										# Master Only
+	chmod +x $1/$2/setup.bash 																			# Master Only
+	writeConfig $1 $2 $3																				# Master Only
+	cd $1/$2																							# Master Only
+	logInfo "Transfering Control"																		# Master Only
+	./setup.bash -o $3																					# Master Only
+	cd $DIR 																							# Master Only
 	exit 1																								# Master Only
 }																										# Master Only
-
-loadConfig()
-{
-	if [[ ! -f $1 ]]; then
-		helpFunction
-	fi
-	while IFS= read -r line; do
-    	PARAMS[${line%%=*}]=${line#*=}
-	done < $1
-
-}
 
 makeProjectSpace()
 {
 	logInfo "Working from $DIR"
-
-	if [[ -n ${PARAMS[CONFIG]} ]]; then
+	logInfo ${PARAMS[@]}
+	if [[ -z ${PARAMS[DIR_EXT]} && -n ${PARAMS[CONFIG]} ]]; then
 		loadConfig ${PARAMS[CONFIG]}
 	fi
-	logInfo ${PARAMS[@]}
+
 	if [[ -n ${PARAMS[DIR_EXT]} ]]; then																# Master Only
-		logInfo "Checking for isolated project space"													# Master Only
-		spawnProject ${PARAMS[DIR_EXT]} ${PARAMS[PROJECT_NAME]} ${PARAMS[ENV_PATH]} ${PARAMS[GIT_EXT]} 	# Master Only
+		logInfo "Checking isolated project space"														# Master Only
+		spawnProject ${PARAMS[DIR_EXT]} ${PARAMS[PROJECT_NAME]} ${PARAMS[CONFIG]}					 	# Master Only
 	fi 																									# Master Only
 
 	logInfo "Asserting runtime location"
@@ -208,7 +228,7 @@ do
 		o) PARAMS[CONFIG]=$OPTARG ;;
 		b) PARAMS[BUILD]=$OPTARG PARAMS[DO_BUILD]=true ;;
 		h) helpFunction ;;
-		?) helpFuncion ;;
+		?) helpFunction ;;
 	esac
 done
 
