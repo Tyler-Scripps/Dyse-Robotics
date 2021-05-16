@@ -31,7 +31,7 @@ helpFunction()
 	echo -e "      [Option]\t Description"
 	echo -e "\n\t-e\t specifies the path to the python3 environment for this project"
 	echo -e "\t-n\t decides the name of the python env"
-	echo -e "\t-p\t declares the name of the project, the default is Dyse-Robotics"
+	echo -e "\t-p\t declares the name of the project (required)"
 	echo -e "\t-c\t specifies the path to a new project relative to this script" 						# Master Only
 	echo -e "\t-g\t specifies the extension of a git repo to attach to the project's root (make sure to update .gitignore before)"
 	echo -e "\t-o\t specifies file path to load the above parameters from"
@@ -118,8 +118,9 @@ attachRemote()
 
 writeConfig()
 {
-	if [[ -n $3 ]]; then
-		filePath=$1/$2/$3
+	filePath=$1/$2/$3
+
+	if [[ -f $filepath ]]; then	
 		echo "PROJECT_NAME=$2" > $filePath
 		logInfo "Writing to $filePath"
 		for key in ${!PARAMS[@]}; 
@@ -151,7 +152,6 @@ spawnProject()																							# Master Only
 		mkdir -p $1/$2 																					# Master Only
 	fi 																									# Master Only
 	sed /"# Master Only"/d $DIR/setup.bash >> $1/$2/setup.bash 											# Master Only
-	sed -i /PARAMS[ENV_NAME]=Dyse_env/c\PARAMS[ENV_NAME]=$2_env $1/$2/setup.bash 						# Master Only
 	sed -i /PROJECT_MASTER=/c\PROJECT_MASTER=$DIR $1/$2/setup.bash 										# Master Only
 	chmod +x $1/$2/setup.bash 																			# Master Only
 	writeConfig $1 $2 $3																				# Master Only
@@ -167,7 +167,8 @@ makeProjectSpace()
 	logInfo "Working from $DIR"
 	logInfo ${PARAMS[@]}
 
-	if [[ -z ${PARAMS[DIR_EXT]} && -n ${PARAMS[CONFIG]} ]]; then
+	if [[ -z ${PARAMS[DIR_EXT]} && -f ${PARAMS[CONFIG]} ]]; then
+		logInfo "Loading Configuration ${PARAMS[CONFIG]}"
 		loadConfig ${PARAMS[CONFIG]}
 	fi
 
@@ -189,7 +190,7 @@ makeProjectSpace()
 		attachRemote ${PARAMS[GIT_EXT]}
 	fi
 
-	if [[ -f config/dependencies.txt ]]; then
+	if [[ -f ${PARAMS[DIR_EXT]}/${PARAMS[PROJECT_NAME]}/config/dependencies.txt ]]; then
 		logInfo "Installing dependencies from ${PWD}/config/dependencies.txt"
 		aptWrap xargs <config/dependencies.txt -y
 	fi
