@@ -199,9 +199,11 @@ makeProjectSpace()
 	if [[ -n ${PARAMS[ENV_PATH]} && -n ${PARAMS[ENV_NAME]} ]]; then
 			logInfo "Creating Python3 Environment"
 			initPy3Env ${PARAMS[ENV_PATH]}/${PARAMS[ENV_NAME]}
+			logInfo "Done creating Environment"
 	fi
 
 	if [[ -f config/python3_requirements.txt ]]; then
+		logInfo "Installing Python3 dependencies"
 		yes | python3 -m pip install -r config/python3_requirements.txt
 	fi
 
