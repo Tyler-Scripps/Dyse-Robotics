@@ -1,4 +1,3 @@
-empy
 wheel
 numpy
 scipy
