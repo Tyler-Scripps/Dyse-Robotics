@@ -1,6 +1,4 @@
 GIT_EXT=mitchelldscott/Dyse-Robotics
 PROJECT_NAME=Dyse-Robotics
-ENV_PATH=~/pyenvs
-ENV_NAME=Dyse_env
 DO_BUILD=true
 BUILD=''

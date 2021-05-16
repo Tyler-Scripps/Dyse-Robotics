@@ -12,7 +12,6 @@ ME='SETUP BOI'
 PROJECT_MASTER=
 
 declare -gA PARAMS
-PARAMS[PROJECT_NAME]=Dyse-Robotics
 
 ##############################
 # Assistive/Diagnostic methods
@@ -29,15 +28,15 @@ logInfo()
 helpFunction()
 {
 	echo -e "[$ME]\tUsage and Hints:\n"
-	echo -e "\t[Option]\t Description"
-	echo -e "\n\t-e\t specifies the path to the python3 environment for this project\n"
-	echo -e "\t-n\t decides the name of the python env\n"
-	echo -e "\t-p\t declares the name of the project, the default is Dyse-Robotics\n"
-	echo -e "\t-c\t specifies the path to a new project relative to this script\n" 						# Master Only
-	echo -e "\t-g\t specifies the extension of a git repo to attach to the project's root (make sure to update .gitignore before)\n"
-	echo -e "\t-o\t specifies file path to load the above parameters from\n"
-	echo -e "\t-b\t will build the project with catkin build\n"
-	echo -e "\t-h\t prints this help message (program will exit after)\n"
+	echo -e "      [Option]\t Description"
+	echo -e "\n\t-e\t specifies the path to the python3 environment for this project"
+	echo -e "\t-n\t decides the name of the python env"
+	echo -e "\t-p\t declares the name of the project (required)"
+	echo -e "\t-c\t specifies the path to a new project relative to this script" 						# Master Only
+	echo -e "\t-g\t specifies the extension of a git repo to attach to the project's root (make sure to update .gitignore before)"
+	echo -e "\t-o\t specifies file path to load the above parameters from"
+	echo -e "\t-b\t will build the project with catkin build"
+	echo -e "\t-h\t prints this help message (program will exit after)"
 	exit 1 # Exit script after printing help
 }
 
@@ -45,16 +44,20 @@ helpFunction()
 # Validating methods
 ####################
 
-isEmptyInput()
+paramsEmpty_eh()
 {
 	# Deprecated
-	for val in "$@"
+	safe=false
+	for val in $@
 	do
-		if [[ -z $val ]]; then
-			echo -e "[$ME]\tMissing $val"
-			helpFunction
+		logInfo $val
+		if [[ -z ${PARAMS[$val]} ]]; then
+			logInfo "Missing $val"
+		else
+			safe=true
 		fi
 	done
+	return $safe
 }
 
 isRootConnected()
@@ -98,11 +101,7 @@ aptWrap()
 initPy3Env()
 {
 	python3 -m venv $1
-	if [[ -f python3_requirements.txt ]]; then
-		source $1/bin/activate
-		pip install -r config/python3_requirements.txt
-		deactivate
-	fi
+	source $1/bin/activate
 }
 
 attachRemote()
@@ -119,8 +118,9 @@ attachRemote()
 
 writeConfig()
 {
-	if [[ -n $3 ]]; then
-		filePath=$1/$2/$3
+	filePath=$1/$2/$3
+
+	if [[ -f $filepath ]]; then	
 		echo "PROJECT_NAME=$2" > $filePath
 		logInfo "Writing to $filePath"
 		for key in ${!PARAMS[@]}; 
@@ -152,7 +152,6 @@ spawnProject()																							# Master Only
 		mkdir -p $1/$2 																					# Master Only
 	fi 																									# Master Only
 	sed /"# Master Only"/d $DIR/setup.bash >> $1/$2/setup.bash 											# Master Only
-	sed -i /PARAMS[ENV_NAME]=Dyse_env/c\PARAMS[ENV_NAME]=$2_env $1/$2/setup.bash 						# Master Only
 	sed -i /PROJECT_MASTER=/c\PROJECT_MASTER=$DIR $1/$2/setup.bash 										# Master Only
 	chmod +x $1/$2/setup.bash 																			# Master Only
 	writeConfig $1 $2 $3																				# Master Only
@@ -167,12 +166,19 @@ makeProjectSpace()
 {
 	logInfo "Working from $DIR"
 	logInfo ${PARAMS[@]}
-	if [[ -z ${PARAMS[DIR_EXT]} && -n ${PARAMS[CONFIG]} ]]; then
+
+	if [[ -z ${PARAMS[DIR_EXT]} && -f ${PARAMS[CONFIG]} ]]; then
+		logInfo "Loading Configuration ${PARAMS[CONFIG]}"
 		loadConfig ${PARAMS[CONFIG]}
 	fi
 
+	if [[ -z ${PARAMS[PROJECT_NAME]} ]]; then
+		logInfo "Found Empty Parameter Table"
+		helpFunction
+	fi
+
 	if [[ -n ${PARAMS[DIR_EXT]} ]]; then																# Master Only
-		logInfo "Checking isolated project space"														# Master Only
+		logInfo "Checking project space"														# Master Only
 		spawnProject ${PARAMS[DIR_EXT]} ${PARAMS[PROJECT_NAME]} ${PARAMS[CONFIG]}					 	# Master Only
 	fi 																									# Master Only
 
@@ -184,14 +190,20 @@ makeProjectSpace()
 		attachRemote ${PARAMS[GIT_EXT]}
 	fi
 
-	if [[ -f dependencies.txt ]]; then
-		logInfo "Installing dependencies"
-		aptWrap xargs <config/dependencies.txt
+	if [[ -f ${PARAMS[DIR_EXT]}/${PARAMS[PROJECT_NAME]}/config/dependencies.txt ]]; then
+		logInfo "Installing dependencies from ${PWD}/config/dependencies.txt"
+		aptWrap xargs <config/dependencies.txt -y
 	fi
 
 	if [[ -n ${PARAMS[ENV_PATH]} && -n ${PARAMS[ENV_NAME]} ]]; then
 			logInfo "Creating Python3 Environment"
 			initPy3Env ${PARAMS[ENV_PATH]}/${PARAMS[ENV_NAME]}
+			logInfo "Done creating Environment"
+	fi
+
+	if [[ -f config/python3_requirements.txt ]]; then
+		logInfo "Installing Python3 dependencies"
+		yes | python3 -m pip install -r config/python3_requirements.txt
 	fi
 
 	if [[ ${PARAMS[DO_BUILD]} = true ]]; then
