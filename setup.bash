@@ -101,9 +101,7 @@ aptWrap()
 initPy3Env()
 {
 	python3 -m venv $1
-	if [[ -f python3_requirements.txt ]]; then
-		source $1/bin/activate
-	fi
+	source $1/bin/activate
 }
 
 attachRemote()
