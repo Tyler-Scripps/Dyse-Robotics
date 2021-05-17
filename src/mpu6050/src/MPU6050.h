@@ -146,35 +146,38 @@ class MPU6050
 		//	Initializers
 		MPU6050(int ado=0);
 		void init();
-		bool begin(mpu6050_gyro_range gRange=GFS_250DPS, mpu6050_accel_range aRange=AFS_2G);
+		void begin(mpu6050_gyro_range gRange=GFS_250DPS, mpu6050_accel_range aRange=AFS_2G);
 
 		//	Settings and Gettings
+    uint8_t getState();
+    uint8_t getAddress();
 		// void setGyroRange();
 		// void setAccelRange();
 		// float getGyroRange();
 		// float getAccelRange();
 
 		//	Diagnostic Functions
-		uint8_t getStatus();
 		// void unitTests();
 		// void calibrate();
 		// void LowPowerAccelOnly();
 		
 		//	High-level I/O
 		// int16_t readTemperature(); 
-		// void readGyroData(Vector* destination);
-		// void readAccelData(Vector* destination);
+    void readRawGyro(Vector* data);
+		void readRawAccel(Vector* data);
 
 		//	Low-level I/O
 		uint8_t readRegister(uint8_t reg);
-		void writeRegister(uint8_t reg, uint16_t value);
+		void writeRegister(uint8_t reg, uint8_t value);
 
 		//	Unit Tests
 		// Test naming convention: test_<what you're test>
 		//		<what you're test> : only alphabet charaters and capital first letter of words
-		bool test_WhoAmI(uint8_address);
+		void test_WhoAmI();
 
 	private:
-		uint8_t status;
+    uint8_t one;
+    uint8_t six;
+		uint8_t state;
 		uint8_t address;
 };
