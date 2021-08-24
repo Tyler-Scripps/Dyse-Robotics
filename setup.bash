@@ -33,7 +33,6 @@ helpFunction()
 	echo -e "\t-n\t decides the name of the python env"
 	echo -e "\t-p\t declares the name of the project (required)"
 	echo -e "\t-c\t specifies the path to a new project relative to this script" 						# Master Only
-	echo -e "\t-g\t specifies the extension of a git repo to attach to the project's root (make sure to update .gitignore before)"
 	echo -e "\t-o\t specifies file path to load the above parameters from"
 	echo -e "\t-b\t will build the project with catkin build"
 	echo -e "\t-h\t prints this help message (program will exit after)"
@@ -106,11 +105,11 @@ initPy3Env()
 
 attachRemote()
 {
+	# DEPRECATED
+
 	if [[ ! -f *.git* ]]; then
 		git init
-		git add .
-		git commit -m "[$ME]    Automated commit"
-		git remote add origin "https://github.com/$1"
+		git remote add origin "git@github.com:$1"
 	fi
 
 	git pull origin master
@@ -118,19 +117,17 @@ attachRemote()
 
 writeConfig()
 {
-	filePath=$1/$2/$3
-
-	if [[ -f $filepath ]]; then	
-		echo "PROJECT_NAME=$2" > $filePath
-		logInfo "Writing to $filePath"
-		for key in ${!PARAMS[@]}; 
-		do
-			echo $key=${PARAMS[$key]} >> $filePath
-		done
-	else
-		logInfo "Invalid Config file"
-		helpFunction
+	filePath=$1/$2/config
+	if [[ ! -d $filePath ]]; then
+		mkdir -p $filePath
 	fi
+	echo "PROJECT_NAME=$2" > $filePath/$3
+	logInfo "Writing to $filePath"
+	for key in ${!PARAMS[@]}; 
+	do
+		echo $key=${PARAMS[$key]} >> $filePath/$3
+	done
+
 }
 
 loadConfig()
@@ -151,13 +148,16 @@ spawnProject()																							# Master Only
 		logInfo "Creating new project space"															# Master Only
 		mkdir -p $1/$2 																					# Master Only
 	fi 																									# Master Only
+	if [[ -f $1/$2/setup.bash ]]; then 																	# Master Only
+		rm $1/$2/setup.bash																				# Master Only
+	fi 																									# Master Only
 	sed /"# Master Only"/d $DIR/setup.bash >> $1/$2/setup.bash 											# Master Only
 	sed -i /PROJECT_MASTER=/c\PROJECT_MASTER=$DIR $1/$2/setup.bash 										# Master Only
 	chmod +x $1/$2/setup.bash 																			# Master Only
-	writeConfig $1 $2 $3																				# Master Only
+	writeConfig $1 $2 ${PARAMS[PROJECT_NAME]}.yaml																# Master Only
 	cd $1/$2																							# Master Only
 	logInfo "Transfering Control"																		# Master Only
-	./setup.bash -o $3																					# Master Only
+	./setup.bash -p ${PARAMS[PROJECT_NAME]} -o config/${PARAMS[PROJECT_NAME]}.yaml																	# Master Only
 	cd $DIR 																							# Master Only
 	exit 1																								# Master Only
 }																										# Master Only
@@ -165,12 +165,14 @@ spawnProject()																							# Master Only
 makeProjectSpace()
 {
 	logInfo "Working from $DIR"
-	logInfo ${PARAMS[@]}
+	
 
 	if [[ -z ${PARAMS[DIR_EXT]} && -f ${PARAMS[CONFIG]} ]]; then
 		logInfo "Loading Configuration ${PARAMS[CONFIG]}"
 		loadConfig ${PARAMS[CONFIG]}
 	fi
+
+	logInfo ${PARAMS[@]}
 
 	if [[ -z ${PARAMS[PROJECT_NAME]} ]]; then
 		logInfo "Found Empty Parameter Table"
@@ -178,17 +180,12 @@ makeProjectSpace()
 	fi
 
 	if [[ -n ${PARAMS[DIR_EXT]} ]]; then																# Master Only
-		logInfo "Checking project space"														# Master Only
+		logInfo "Checking project space"																# Master Only
 		spawnProject ${PARAMS[DIR_EXT]} ${PARAMS[PROJECT_NAME]} ${PARAMS[CONFIG]}					 	# Master Only
 	fi 																									# Master Only
 
 	logInfo "Asserting runtime location"
-	isRootConnected ${PARAMS[PROJECT_NAME]}
-
-	if [[ -n ${PARAMS[GIT_EXT]} ]]; then
-		logInfo "Attaching remote git repository"
-		attachRemote ${PARAMS[GIT_EXT]}
-	fi
+	isRootConnected ${PARAMS[DIR_EXT]}/${PARAMS[PROJECT_NAME]}
 
 	if [[ -f ${PARAMS[DIR_EXT]}/${PARAMS[PROJECT_NAME]}/config/dependencies.txt ]]; then
 		logInfo "Installing dependencies from ${PWD}/config/dependencies.txt"
@@ -205,7 +202,6 @@ makeProjectSpace()
 		logInfo "Installing Python3 dependencies"
 		yes | python3 -m pip install -r config/python3_requirements.txt
 	fi
-
 	if [[ ${PARAMS[DO_BUILD]} = true ]]; then
 		logInfo "Building your workspace"
 		if [[ ! -d src ]]; then
@@ -220,6 +216,11 @@ makeProjectSpace()
 		catkin build ${PARAMS[BUILD]}
 	fi
 
+	if [[ -n ${PARAMS[INSTALL]} ]]; then
+		logInfo "Attempting to install ${PROJECT_NAME} to ${PARAMS[INSTALL]}"
+		ssh ${PARAMS[INSTALL]} mkdir dyse_robotics && mkdir dyse_robotics/${PROJECT_NAME}
+		scp ${PWD}/bin/* ${PARAMS[INSTALL]}:dyse_robotics/${PROJECT_NAME}
+	fi
 	logInfo "Project space successfully Built!"
 }
 
@@ -229,16 +230,16 @@ makeProjectSpace()
 ################
 
 logInfo "Filling parameter table"
-while getopts "e:n:p:c:g:o:b h:" opt;
+while getopts "e:n:p:c:o:b h:" opt;
 do
 	case $opt in
 		e) PARAMS[ENV_PATH]=$OPTARG ;;
 		n) PARAMS[ENV_NAME]=$OPTARG ;;
 		p) PARAMS[PROJECT_NAME]=$OPTARG ;;
 		c) PARAMS[DIR_EXT]=$OPTARG ;;																	# Master Only
-		g) PARAMS[GIT_EXT]=$OPTARG ;;
 		o) PARAMS[CONFIG]=$OPTARG ;;
 		b) PARAMS[BUILD]=$OPTARG PARAMS[DO_BUILD]=true ;;
+		i) PARAMS[INSTALL]=$OPTARG ;;
 		h) helpFunction ;;
 		?) helpFunction ;;
 	esac
