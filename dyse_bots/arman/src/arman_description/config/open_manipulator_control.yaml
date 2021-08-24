@@ -1,0 +1,34 @@
+open_manipulator_robot:
+  joint1:
+    joint: joint1
+    type: position_controllers/JointPositionController
+    
+  joint2:
+    joint: joint2
+    type: position_controllers/JointPositionController
+
+  joint3:
+    joint: joint3
+    type: position_controllers/JointPositionController
+
+  joint4:
+    joint: joint4
+    type: position_controllers/JointPositionController
+
+  gripper:
+    joint: gripper
+    type: effort_controllers/JointPositionController
+    
+  gripper_sub:
+    joint: gripper_sub
+    type: effort_controllers/JointPositionController
+
+  joint_state_controller:
+    publish_rate: 1000
+    type: joint_state_controller/JointStateController
+    
+gazebo_ros_control/pid_gains:
+  joint1: {p: 100.0, i: 0.01, d: 0.0}
+  joint2: {p: 100.0, i: 0.01, d: 0.0}
+  joint3: {p: 100.0, i: 0.01, d: 0.0}
+  joint4: {p: 100.0, i: 0.01, d: 0.0}

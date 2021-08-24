@@ -1,0 +1,9 @@
+empy
+wheel
+scipy
+pyYAML
+catkin_pkg
+matplotlib
+opencv-python
+numpy==1.19.4
+adafruit-circuitpython-servokit
