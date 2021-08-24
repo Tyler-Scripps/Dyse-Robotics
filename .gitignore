@@ -2,3 +2,7 @@ build
 devel
 logs
 .catkin_tools
+dyse_bots/*/build
+dyse_bots/*/devel
+dyse_bots/*/logs
+dyse_bots/*/.catkin_tools
