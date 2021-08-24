@@ -1,0 +1,7 @@
+PROJECT_NAME=Arman
+DO_BUILD=true
+CONFIG=config/Arman.yaml
+BUILD=
+PROJECT_NAME=Arman
+GIT_EXT=mitchelldscott/Arman.git
+DIR_EXT=dyse_bots

@@ -1,0 +1,17 @@
+<launch>
+	
+	<rosparam file="$(find arman_description)/config/kuka_control.yaml" command="load"/>
+
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" 
+		respawn="false" output="screen" ns="/kuka" 
+		args="link_1_controller
+			link_2_controller
+			link_3_controller
+			joint_state_controller"
+	/>
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+		<remap from="/joint_states" to="/kuka/joint_states"/> 
+	</node> 
+	
+</launch>
