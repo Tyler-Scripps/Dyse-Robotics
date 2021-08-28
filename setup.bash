@@ -34,7 +34,7 @@ helpFunction()
 	echo -e "\t-p\t declares the name of the project (required)"
 	echo -e "\t-c\t specifies the path to a new project relative to this script" 						# Master Only
 	echo -e "\t-o\t specifies file path to load the above parameters from"
-	echo -e "\t-b\t will build the project with catkin build"
+	echo -e "\t-b\t will build the project with catkin build (builds whatever package you pass)"
 	echo -e "\t-h\t prints this help message (program will exit after)"
 	exit 1 # Exit script after printing help
 }
@@ -62,7 +62,7 @@ paramsEmpty_eh()
 isRootConnected()
 {
 	# make sure that the script is executing from the projects root
-	if [[ $DIR = */$1 ]]; then
+	if [[ $PWD = */$1 ]]; then
 		logInfo  "Confirmed $DIR is your project's root"
 	else
 		logInfo "Could not find your project's root directory"
@@ -151,21 +151,22 @@ spawnProject()																							# Master Only
 	if [[ -f $1/$2/setup.bash ]]; then 																	# Master Only
 		rm $1/$2/setup.bash																				# Master Only
 	fi 																									# Master Only
-	sed /"# Master Only"/d $DIR/setup.bash >> $1/$2/setup.bash 											# Master Only
-	sed -i /PROJECT_MASTER=/c\PROJECT_MASTER=$DIR $1/$2/setup.bash 										# Master Only
-	chmod +x $1/$2/setup.bash 																			# Master Only
-	writeConfig $1 $2 ${PARAMS[PROJECT_NAME]}.yaml																# Master Only
-	cd $1/$2																							# Master Only
-	logInfo "Transfering Control"																		# Master Only
-	./setup.bash -p ${PARAMS[PROJECT_NAME]} -o config/${PARAMS[PROJECT_NAME]}.yaml																	# Master Only
-	cd $DIR 																							# Master Only
-	exit 1																								# Master Only
+	# sed /"# Master Only"/d $DIR/setup.bash >> $1/$2/setup.bash 											# Master Only
+	# sed -i /PROJECT_MASTER=/c\PROJECT_MASTER=$DIR $1/$2/setup.bash 										# Master Only
+	# chmod +x $1/$2/setup.bash 																			# Master Only
+	# writeConfig $1 $2 ${PARAMS[PROJECT_NAME]}.yaml																# Master Only
+	# cd $1/$2																							# Master Only
+	# logInfo "Transfering Control"																		# Master Only
+
+	# ./setup.bash -o ${PARAMS[PROJECT_NAME]}															# Master Only
+
+	cd ${DIR}/${PARAMS[DIR_EXT]}/${PARAMS[PROJECT_NAME]}																							# Master Only
+	# exit 1																								# Master Only
 }																										# Master Only
 
 makeProjectSpace()
 {
 	logInfo "Working from $DIR"
-	
 
 	if [[ -z ${PARAMS[DIR_EXT]} && -f ${PARAMS[CONFIG]} ]]; then
 		logInfo "Loading Configuration ${PARAMS[CONFIG]}"
@@ -187,9 +188,9 @@ makeProjectSpace()
 	logInfo "Asserting runtime location"
 	isRootConnected ${PARAMS[DIR_EXT]}/${PARAMS[PROJECT_NAME]}
 
-	if [[ -f ${PARAMS[DIR_EXT]}/${PARAMS[PROJECT_NAME]}/config/dependencies.txt ]]; then
-		logInfo "Installing dependencies from ${PWD}/config/dependencies.txt"
-		aptWrap xargs <config/dependencies.txt -y
+	if [[ -f ${DIR}/config/dependencies.txt ]]; then
+		logInfo "Installing dependencies from ${DIR}/config/dependencies.txt"
+		aptWrap xargs <${DIR}/config/dependencies.txt -y
 	fi
 
 	if [[ -n ${PARAMS[ENV_PATH]} && -n ${PARAMS[ENV_NAME]} ]]; then
@@ -200,26 +201,34 @@ makeProjectSpace()
 
 	if [[ -f config/python3_requirements.txt ]]; then
 		logInfo "Installing Python3 dependencies"
-		yes | python3 -m pip install -r config/python3_requirements.txt
+		yes | python3 -m pip install -r config/${PARAMS[PROJECT_NAME]}_python3_requirements.txt
 	fi
+
 	if [[ ${PARAMS[DO_BUILD]} = true ]]; then
 		logInfo "Building your workspace"
 		if [[ ! -d src ]]; then
 			mkdir src
 		fi
-		catkin config -init
+
+		catkin config --install
 		if [[ -n ${PARAMS[ENV_PATH]} && -n ${PARAMS[ENV_NAME]} ]]; then
 			catkin config -DPYTHON_EXECUTABLE=${PARAMS[ENV_PATH]}/${PARAMS[ENV_NAME]}/bin/python3
 		else
 			catkin config -DPYTHON_EXECUTABLE=/usr/bin/python3
 		fi
-		catkin build ${PARAMS[BUILD]}
+		if [[ -n ${PARAMS[BUILD]} ]]; then
+			catkin build ${PARAMS[BUILD]}
+		else
+			catkin build ${PARAMS[PROJECT_NAME]}
+		fi
 	fi
 
 	if [[ -n ${PARAMS[INSTALL]} ]]; then
 		logInfo "Attempting to install ${PROJECT_NAME} to ${PARAMS[INSTALL]}"
-		ssh ${PARAMS[INSTALL]} mkdir dyse_robotics && mkdir dyse_robotics/${PROJECT_NAME}
-		scp ${PWD}/bin/* ${PARAMS[INSTALL]}:dyse_robotics/${PROJECT_NAME}
+		# Run Crossbuild here
+		# probably want to use docker containers
+		# AFAIK it requires sending less files
+		# and should help with compatibility.
 	fi
 	logInfo "Project space successfully Built!"
 }
@@ -230,6 +239,7 @@ makeProjectSpace()
 ################
 
 logInfo "Filling parameter table"
+PARAMS[CONFIG]=""
 while getopts "e:n:p:c:o:b h:" opt;
 do
 	case $opt in
@@ -237,7 +247,7 @@ do
 		n) PARAMS[ENV_NAME]=$OPTARG ;;
 		p) PARAMS[PROJECT_NAME]=$OPTARG ;;
 		c) PARAMS[DIR_EXT]=$OPTARG ;;																	# Master Only
-		o) PARAMS[CONFIG]=$OPTARG ;;
+		o) PARAMS[CONFIG]=config/$OPTARG.yaml ;;
 		b) PARAMS[BUILD]=$OPTARG PARAMS[DO_BUILD]=true ;;
 		i) PARAMS[INSTALL]=$OPTARG ;;
 		h) helpFunction ;;

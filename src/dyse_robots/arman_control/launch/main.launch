@@ -1,0 +1,11 @@
+<launch>
+	<arg name="model"/>
+
+	<group if="$(eval arg('model')=='kuka')">
+		<include file="$(find arman_control)/launch/load_kuka_controller.launch"/>
+	</group>
+
+	<group if="$(eval arg('model')=='open_manipulator_robot')">
+		<include file="$(find arman_control)/launch/load_OM_controller.launch"/>
+	</group>
+</launch>

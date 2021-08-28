@@ -1,0 +1,17 @@
+<launch>
+
+	<arg name="model"/>
+	<arg name="paused" default="false"/>
+	<arg name="verbose" default="false"/>
+	<arg name="world_name" default="$(find gazebo_ros)/worlds/empty.world"/>
+
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(arg world_name)"/>
+		<arg name="verbose" value="$(arg verbose)"/>
+		<arg name="paused" value="$(arg paused)"/>
+	</include>
+
+	<node name="robot_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model $(arg model) -param robot_description -z 0.0"/>
+
+</launch>
