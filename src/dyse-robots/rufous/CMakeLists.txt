@@ -103,7 +103,6 @@ catkin_package(
  # INCLUDE_DIRS include
  # LIBRARIES rofous
  CATKIN_DEPENDS 
-  dyse_gazebo
   rufous_control  
   rufous_odometry 
   rufous_description 

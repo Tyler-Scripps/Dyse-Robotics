@@ -102,7 +102,6 @@ catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES arman
  CATKIN_DEPENDS 
-  dyse_gazebo
   arman_control 
   arman_description 
 #  DEPENDS system_lib

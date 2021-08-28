@@ -16,7 +16,6 @@
   <license>TODO</license>
 
 
-  <depend>dyse_gazebo</depend>
   <depend>arman_control</depend>
   <depend>arman_description</depend>
   <buildtool_depend>catkin</buildtool_depend>

@@ -205,7 +205,7 @@ buildWorkSpace()
 			mkdir src
 		fi
 
-		catkin config --install
+		catkin config --install --profile dev
 		if [[ -n ${PARAMS[ENV_PATH]} && -n ${PARAMS[ENV_NAME]} ]]; then
 			catkin config -DPYTHON_EXECUTABLE=${PARAMS[ENV_PATH]}/${PARAMS[ENV_NAME]}/bin/python3
 		else
