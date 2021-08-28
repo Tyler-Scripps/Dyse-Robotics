@@ -32,7 +32,6 @@ helpFunction()
 	echo -e "\n\t-e\t specifies the path to the python3 environment for this project"
 	echo -e "\t-n\t decides the name of the python env"
 	echo -e "\t-p\t declares the name of the project (required)"
-	echo -e "\t-c\t specifies the path to a new project relative to this script" 						# Master Only
 	echo -e "\t-o\t specifies file path to load the above parameters from"
 	echo -e "\t-b\t will build the project with catkin build (builds whatever package you pass)"
 	echo -e "\t-h\t prints this help message (program will exit after)"
@@ -62,11 +61,11 @@ paramsEmpty_eh()
 isRootConnected()
 {
 	# make sure that the script is executing from the projects root
-	if [[ $PWD = */$1 ]]; then
+	if [[ -d $DIR/$1 ]]; then
 		logInfo  "Confirmed $DIR is your project's root"
 	else
 		logInfo "Could not find your project's root directory"
-		logInfo "Project Name: $1"
+		logInfo "Project Path: $1"
 		logInfo "Current directory: $DIR"
 		helpFunction
 	fi
@@ -142,33 +141,34 @@ loadConfig()
 	fi
 }
 
-spawnProject()																							# Master Only
-{																										# Master Only
-	if [[ ! -d $1/$2 ]]; then																			# Master Only
-		logInfo "Creating new project space"															# Master Only
-		mkdir -p $1/$2 																					# Master Only
-	fi 																									# Master Only
-	if [[ -f $1/$2/setup.bash ]]; then 																	# Master Only
-		rm $1/$2/setup.bash																				# Master Only
-	fi 																									# Master Only
-	# sed /"# Master Only"/d $DIR/setup.bash >> $1/$2/setup.bash 											# Master Only
-	# sed -i /PROJECT_MASTER=/c\PROJECT_MASTER=$DIR $1/$2/setup.bash 										# Master Only
-	# chmod +x $1/$2/setup.bash 																			# Master Only
-	# writeConfig $1 $2 ${PARAMS[PROJECT_NAME]}.yaml																# Master Only
-	# cd $1/$2																							# Master Only
-	# logInfo "Transfering Control"																		# Master Only
+spawnProject()																							
+{				
+	# DEPRECATED 																						
+	if [[ ! -d $1/$2 ]]; then																			
+		logInfo "Creating new project space"															
+		mkdir -p $1/$2 																					
+	fi 																									
+	if [[ -f $1/$2/setup.bash ]]; then 																	
+		rm $1/$2/setup.bash																				
+	fi 																									
+	# sed /""/d $DIR/setup.bash >> $1/$2/setup.bash 											
+	# sed -i /PROJECT_MASTER=/c\PROJECT_MASTER=$DIR $1/$2/setup.bash 										
+	# chmod +x $1/$2/setup.bash 																			
+	# writeConfig $1 $2 ${PARAMS[PROJECT_NAME]}.yaml																
+	# cd $1/$2																							
+	# logInfo "Transfering Control"																		
 
-	# ./setup.bash -o ${PARAMS[PROJECT_NAME]}															# Master Only
+	# ./setup.bash -o ${PARAMS[PROJECT_NAME]}															
 
-	cd ${DIR}/${PARAMS[DIR_EXT]}/${PARAMS[PROJECT_NAME]}																							# Master Only
-	# exit 1																								# Master Only
-}																										# Master Only
+	cd ${DIR}/${PARAMS[DIR_EXT]}/${PARAMS[PROJECT_NAME]}																							
+	# exit 1																								
+}																										
 
-makeProjectSpace()
+buildWorkSpace()
 {
 	logInfo "Working from $DIR"
 
-	if [[ -z ${PARAMS[DIR_EXT]} && -f ${PARAMS[CONFIG]} ]]; then
+	if [[ -f ${PARAMS[CONFIG]} ]]; then
 		logInfo "Loading Configuration ${PARAMS[CONFIG]}"
 		loadConfig ${PARAMS[CONFIG]}
 	fi
@@ -178,15 +178,10 @@ makeProjectSpace()
 	if [[ -z ${PARAMS[PROJECT_NAME]} ]]; then
 		logInfo "Found Empty Parameter Table"
 		helpFunction
-	fi
-
-	if [[ -n ${PARAMS[DIR_EXT]} ]]; then																# Master Only
-		logInfo "Checking project space"																# Master Only
-		spawnProject ${PARAMS[DIR_EXT]} ${PARAMS[PROJECT_NAME]} ${PARAMS[CONFIG]}					 	# Master Only
-	fi 																									# Master Only
+	fi																							
 
 	logInfo "Asserting runtime location"
-	isRootConnected ${PARAMS[DIR_EXT]}/${PARAMS[PROJECT_NAME]}
+	isRootConnected src/dyse-robots/${PARAMS[PROJECT_NAME]}
 
 	if [[ -f ${DIR}/config/dependencies.txt ]]; then
 		logInfo "Installing dependencies from ${DIR}/config/dependencies.txt"
@@ -246,7 +241,7 @@ do
 		e) PARAMS[ENV_PATH]=$OPTARG ;;
 		n) PARAMS[ENV_NAME]=$OPTARG ;;
 		p) PARAMS[PROJECT_NAME]=$OPTARG ;;
-		c) PARAMS[DIR_EXT]=$OPTARG ;;																	# Master Only
+		c) PARAMS[DIR_EXT]=$OPTARG ;;																	
 		o) PARAMS[CONFIG]=config/$OPTARG.yaml ;;
 		b) PARAMS[BUILD]=$OPTARG PARAMS[DO_BUILD]=true ;;
 		i) PARAMS[INSTALL]=$OPTARG ;;
@@ -255,4 +250,4 @@ do
 	esac
 done
 
-makeProjectSpace
+buildWorkSpace
