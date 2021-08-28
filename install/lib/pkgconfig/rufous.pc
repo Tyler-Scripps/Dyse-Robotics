@@ -1,8 +1,0 @@
-prefix=/home/m_dyse/Dyse-Robotics/install
-
-Name: rufous
-Description: Description of rufous
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: dyse_gazebo rufous_control rufous_odometry rufous_description rufous_gazebo_plugin serial_reader
