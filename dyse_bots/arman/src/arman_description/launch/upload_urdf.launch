@@ -1,4 +1,0 @@
-<launch>
-	<arg name="model"/>
-	<param name="robot_description" command="cat $(find arman_description)/urdf/$(arg model).urdf"/>
-</launch>

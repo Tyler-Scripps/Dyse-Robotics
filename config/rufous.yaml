@@ -1,0 +1,5 @@
+PROJECT_NAME=rufous
+DO_BUILD=true
+BUILD=rufous
+DIR_EXT=dyse_bots
+INSTALL=dyse@10.0.0.58
