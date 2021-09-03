@@ -9,7 +9,10 @@
 	<arg name="verbose" default="false"/>
 	<arg name="device" default="IOT_nano_33"/>
 	<arg name="description_type" default="xacro"/>
-	<arg name="world_name" default="$(find gazebo_ros)/worlds/empty.world"/>
+	<group if="$(arg sim)">
+		<arg name="world_name" default="$(find gazebo_ros)/worlds/empty.world"/>
+	</group>
+	
 
 	<group ns="$(arg model)">
 		<group if="$(eval arg('description_type')=='urdf')">
