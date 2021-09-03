@@ -24,7 +24,7 @@
 			</include>
 		</group>
 
-		<group if="$(eval arg('sim')=='true')">
+		<group if="$(arg sim)">
 			<include file="$(find dyse_gazebo)/launch/gazebo.launch">
 				<arg name="model" value="$(arg model)"/>
 				<arg name="paused" value="$(arg paused)"/>
