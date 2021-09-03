@@ -228,7 +228,6 @@ buildWorkSpace()
 	logInfo "Project space successfully Built!"
 }
 
-
 ################
 # Process script
 ################
@@ -250,4 +249,5 @@ do
 	esac
 done
 
+source dyse.bash
 buildWorkSpace
