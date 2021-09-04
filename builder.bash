@@ -227,8 +227,8 @@ buildWorkSpace()
 		git commit -m "${ME} auto commit"
 		git push -f origin install
 
-		CMD="git clone https://github.com/mitchelldscott/dyse-robotics.git && cd /home/dyse/dyse-robotics && git checkout install && ./builder.bash -o ${PARAMS[CONFIG]}"
-		ssh dyse@${PARAMS[INSTALL]} 'rm -rf dyse-robotics || mkdir dyse-robotics'
+		CMD="rm -rf dyse-robotics || mkdir dyse-robotics && git clone https://github.com/mitchelldscott/dyse-robotics.git && cd /home/dyse/dyse-robotics && git checkout install && ./builder.bash -o ${PARAMS[CONFIG]}"
+		#ssh dyse@${PARAMS[INSTALL]} 'rm -rf dyse-robotics || mkdir dyse-robotics'
 		ssh dyse@${PARAMS[INSTALL]} $CMD
 
 	fi
