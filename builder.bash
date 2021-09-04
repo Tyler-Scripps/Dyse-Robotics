@@ -238,7 +238,7 @@ buildWorkSpace()
 ################
 # Process script
 ################
-
+source /opt/ros/noetic/setup.bash
 logInfo "Filling parameter table"
 PARAMS[CONFIG]=""
 while getopts "e:n:p:c:o:b h:" opt;
