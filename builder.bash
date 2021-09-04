@@ -219,7 +219,7 @@ buildWorkSpace()
 	fi
 
 	if [[ -n ${PARAMS[INSTALL]} ]]; then
-		logInfo "Attempting to install ${PROJECT_NAME} to ${PARAMS[INSTALL]}"
+		logInfo "Attempting to install ${PARAMS[PROJECT_NAME]} to ${PARAMS[INSTALL]}"
 		# 
 		git add .
 		git commit -m "${ME} auto commit"
