@@ -219,13 +219,13 @@ buildWorkSpace()
 	fi
 
 	if [[ -n ${PARAMS[INSTALL]} ]]; then
-		logInfo "Attempting to install ${PARAMS[PROJECT_NAME]} to ${PARAMS[INSTALL]}"
+		logInfo "Attempting to install ${PARAMS[PROJECT_NAME]} to dyse@${PARAMS[INSTALL]}"
 		# 
 		git add .
 		git commit -m "${ME} auto commit"
 		git push -f origin install
 
-		CMD="rm -rf dyse-robotics || git clone https://github.com/mitchelldscott/dyse-robotics.git && touch mark.txt && cd /home/dyse/dyse-robotics && git checkout install && ./builder.bash -o ${PARAMS[CONFIG]}"
+		CMD="git clone https://github.com/mitchelldscott/dyse-robotics.git && touch mark.txt && cd /home/dyse/dyse-robotics && git checkout install && ./builder.bash -o ${PARAMS[CONFIG]}"
 
 		ssh dyse@${PARAMS[INSTALL]} $CMD
 
