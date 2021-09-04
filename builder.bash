@@ -116,6 +116,7 @@ attachRemote()
 
 writeConfig()
 {
+	# DEPRECATED
 	filePath=$1/$2/config
 	if [[ ! -d $filePath ]]; then
 		mkdir -p $filePath
