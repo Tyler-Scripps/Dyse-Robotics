@@ -9,6 +9,7 @@
 	<arg name="verbose" default="false"/>
 	<arg name="device" default="IOT_nano_33"/>
 	<arg name="description_type" default="xacro"/>
+	
 	<group if="$(arg sim)">
 		<arg name="world_name" default="$(find gazebo_ros)/worlds/empty.world"/>
 	</group>
