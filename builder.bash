@@ -227,7 +227,7 @@ buildWorkSpace()
 
 		CMD="git clone git@github.com:mitchelldscott/dyse-robotics.git && cd dyse-robotics && git checkout install && ./builder.bash -o ${PARAMS[CONFIG]}"
 
-		ssh dyse@${PARAMS[INSTALL]} CMD
+		ssh dyse@${PARAMS[INSTALL]} $CMD
 
 	fi
 	logInfo "Project space successfully Built!"
