@@ -220,7 +220,7 @@ buildWorkSpace()
 		fi
 	fi
 
-	if [[ -n ${PARAMS[INSTALL]} ]]; then
+	if [[ -z ${PARAMS[LIVE]} && -n ${PARAMS[INSTALL]} ]]; then
 		logInfo "Attempting to install ${PARAMS[PROJECT_NAME]} to dyse@${PARAMS[INSTALL]}"
 		# 
 		git add .
