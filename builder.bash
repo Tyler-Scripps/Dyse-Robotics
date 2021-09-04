@@ -183,7 +183,7 @@ buildWorkSpace()
 	logInfo "Asserting runtime location"
 	isRootConnected src/dyse-robots/${PARAMS[PROJECT_NAME]}
 
-	if [[ -f ${DIR}/config/dependencies.txt ]]; then
+	if [[ -z PARAMS[DEPENDENCIES] && -f ${DIR}/config/dependencies.txt ]]; then
 		logInfo "Installing dependencies from ${DIR}/config/dependencies.txt"
 		aptWrap xargs <${DIR}/config/dependencies.txt -y
 	fi
@@ -194,7 +194,7 @@ buildWorkSpace()
 			logInfo "Done creating Environment"
 	fi
 
-	if [[ -f config/python3_requirements.txt ]]; then
+	if [[ -z PARAMS[DEPENDENCIES] && -f config/python3_requirements.txt ]]; then
 		logInfo "Installing Python3 dependencies"
 		yes | python3 -m pip install -r config/${PARAMS[PROJECT_NAME]}_python3_requirements.txt
 	fi
@@ -220,10 +220,15 @@ buildWorkSpace()
 
 	if [[ -n ${PARAMS[INSTALL]} ]]; then
 		logInfo "Attempting to install ${PROJECT_NAME} to ${PARAMS[INSTALL]}"
-		# Run Crossbuild here
-		# probably want to use docker containers
-		# AFAIK it requires sending less files
-		# and should help with compatibility.
+		# 
+		git add .
+		git commit -m "${ME} auto commit"
+		git push -f origin install
+
+		CMD="git clone git@github.com:mitchelldscott/dyse-robotics.git && cd dyse-robotics && git checkout install && ./builder.bash -o ${PARAMS[CONFIG]}"
+
+		ssh dyse@${PARAMS[INSTALL]} CMD
+
 	fi
 	logInfo "Project space successfully Built!"
 }
