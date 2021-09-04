@@ -138,7 +138,6 @@ loadConfig()
 	else
 		while IFS= read -r line; do
 			PARAMS[${line%%=*}]=${line#*=}
-			logInfo ${PARAMS[CONFIG]}
 		done < $1
 	fi
 }
