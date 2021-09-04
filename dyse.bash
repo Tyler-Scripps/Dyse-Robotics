@@ -4,8 +4,73 @@
 # Tools
 #########
 
+aptWrap()
+{
+	sudo apt-get update
+	$1 sudo apt-get install $2
+}
+
 setBot(){
 	export ROBOT_IP=$1
+}
+
+####################
+# Validating methods
+####################
+
+isRootConnected()
+{
+	# make sure that the script is executing from the projects root
+	if [[ -d $DIR/$1 ]]; then
+		logInfo  "Confirmed $DIR is your project's root"
+	else
+		logInfo "Could not find your project's root directory"
+		logInfo "Project Path: $1"
+		logInfo "Current directory: $DIR"
+		helpFunction
+	fi
+}
+
+####################
+# Functional methods
+####################
+
+installDepends(){
+	aptWrap xargs <${ROBOT_ROOT}/config/dependencies.txt -y
+	yes | python3 -m pip install -r ${ROBOT_ROOT}/config/$1_python3_requirements.txt
+}
+
+purgeFunction()
+{
+	for val in "$@"
+	do
+		if [[ -d $val ]]; then
+			echo -e "\n[$ME]\tPurging your workspace of $val ...\n"
+			sudo rm -rf $val
+		else
+			echo -e "\n[$ME]\t$val does not exist, skipping ...\n"
+		fi	
+	done
+	
+	echo "\n[$ME]\tDone purging!"
+}
+
+initPy3Env()
+{
+	python3 -m venv $1
+	source $1/bin/activate
+}
+
+loadConfig()
+{
+	if [[ ! -f $1 ]]; then
+		logInfo "There does not appear to be a config file"
+		helpFunction
+	else
+		while IFS= read -r line; do
+			PARAMS[${line%%=*}]=${line#*=}
+		done < $1
+	fi
 }
 
 #########
@@ -13,6 +78,8 @@ setBot(){
 #########
 
 export ROBOT_IP=10.0.0.13 # the default static IP for dyse-robots
+export ROBOT_ROOT=/home/dyse/dyse-robotics
 
 alias setupBot="source install/setup.bash && export ROS_MASTER_URI=${ROBOT_IP}"
 alias sshBot="ssh dyse@${ROBOT_IP}"
+

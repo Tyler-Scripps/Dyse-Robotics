@@ -1,6 +1,0 @@
-PROJECT_NAME=rufous
-DO_BUILD=true
-BUILD=rufous
-DIR_EXT=dyse_bots
-DEPENDENCIES=true
-LIVE=true
