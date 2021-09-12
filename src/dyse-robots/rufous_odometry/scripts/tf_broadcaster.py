@@ -13,16 +13,16 @@ from std_msgs.msg import Float64
 from geometry_msgs.msg import PoseStamped, Quaternion, Point
 
 class tf_Broadcaster:
-	def __init__(self, namespace, parent, sensor):
+	def __init__(self, namespace, parent, topic):
 		rospy.init_node('tf_broadcaster')
 
 		self.ns = namespace
 		self.parent = parent
 		self.rate = rospy.Rate(10)
-		self.sensor = sensor
+		self.topic = topic
 		self.broadcaster = tf.TransformBroadcaster()
 
-		self.sub = rospy.Subscriber(self.sensor, PoseStamped, self.motionCallback)
+		self.sub = rospy.Subscriber(self.topic, PoseStamped, self.motionCallback)
 
 	def motionCallback(self, data):
 		pose = data.pose.position

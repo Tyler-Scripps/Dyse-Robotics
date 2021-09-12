@@ -1,18 +1,18 @@
 <launch>
 	<arg name="rviz" default="true"/>
 	<arg name="sim" default="false"/>
-	<arg name="sensor" default="IMU"/>
-	<arg name="parent" default="/world"/>
+	<arg name="topic" default="Pose"/>
+	<arg name="parent" default="/arduino"/>
 	<arg name="namespace" default="Rufous"/>
 	<arg name="device" default="IOT_nano_33"/>
 
 	<group ns="$(arg namespace)">
 
 		<node name="odometry" pkg="rufous_odometry" type="tf_broadcaster.py" respawn="false" output="screen"
-			args="$(arg namespace) $(arg parent) $(arg sensor)"/>
+			args="$(arg namespace) $(arg parent) $(arg topic)"/>
 
 		<group unless="$(arg sim)">
-			<include file="$(find serial_reader)/launch/main.launch">
+			<include file="$(find serial_agent)/launch/main.launch">
 				<arg name="device" value="$(arg device)"/>
 			</include>
 		</group>

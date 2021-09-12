@@ -107,7 +107,7 @@ catkin_package(
   rufous_odometry 
   rufous_description 
   rufous_gazebo_plugin
-  serial_reader
+  serial_agent
 )
 
 ###########

@@ -37,11 +37,13 @@ class SerialAgent:
 		self.nPorts = 0
 		self.config = None
 		self.device = None
+		self.publishers = {}
 		self.loadDevice(config)
-		self.tryConnect()
+		rospy.init_node('agent', anonymous=True)
+		self.sub = rospy.Subscriber('/serial_out', String, self.writerCallback)
+		self.initPublishers()
 
-		rospy.init_node(self.config['WhoAmI'], anonymous=True)
-		self.sub = rospy.subscriber('/serial_out', String, self.writerCallback)
+		self.tryConnect()
 
 	def loadDevice(self, config):
 		"""
@@ -53,8 +55,11 @@ class SerialAgent:
 			self.config = yaml.safe_load(stream)
 
 		self.log(self.config)
-		if not 'WhoAmI' in self.config:
-			self.config['WhoAmI'] = 'Serial_Reader'
+		if not 'State' in self.config:
+			kill = 1
+			self.log('Missing state description')
+		elif not self.config['State']['WHOAMI']:
+			self.config['State']['WHOAMI'] = 'Serial_Agent'
 		if not 'Baudrate' in self.config:
 			kill = 1
 			self.log('Missing Baudrate')
@@ -63,8 +68,6 @@ class SerialAgent:
 			self.log('Missing Ports')
 		else:
 			 self.nPorts = len(self.config['Ports'])
-		if not 'Publishers' in self.config:
-			self.config['Publishers'] = {}
 
 		if kill:
 			self.log('Check your config file')
@@ -78,21 +81,36 @@ class SerialAgent:
 		  status: bool - True if successful
 		"""
 		try:
+			if self.device:
+				self.device.close()
+
 			self.device = serial.Serial(self.config['Ports'][alt], self.config['Baudrate'], timeout=self.config['Timeout'])
 			self.device.flush()
 			self.log('Device Connected: Reading...')
 			self.connected = True
-			return True 
 
 		except Exception as e:
 			self.log(f'Error Detecting Device at {self.config["Ports"][alt]}')
 			self.log(e)
 			self.connected = False
 			if self.nPorts > alt + 1:
-				if self.device:
-					self.device.close()
-				return self.tryConnect(alt=alt+1)
-			return False
+				self.tryConnect(alt=alt+1)
+		if not self.connected:
+			time.sleep(5)
+
+		self.writeBack(b'Z')
+		return self.connected
+
+	def initPublishers(self):
+		"""
+		  Creates publishers.
+		"""
+		for topic in self.config['State']:
+			if topic == 'WHOAMI':
+				continue
+			dtype = dType_LUT[f'{self.config["State"][topic]}']
+			self.publishers[topic] = rospy.Publisher(topic, dtype, queue_size=1)
+
 
 	def writeBack(self, mesg):
 		"""
@@ -113,26 +131,9 @@ class SerialAgent:
 			Params:
 			  text: value - prints this
 		"""
-		rospy.loginfo(f'[{self.config["WhoAmI"]}]: {text}')
+		rospy.loginfo(f'[Serial_Agent]: {text}')
 
-	def initPublisher(self, topic, msgType):
-		"""
-		  Create a new publisher.
-
-			Params:
-			  topic: string - destination for the publisher
-			  msgType: string - the datatype of the msg
-		"""
-		if topic == 'SUDO':
-			if msgType == -1:
-				self.log(f'Session Terminated by {topic} on Device')
-				exit(0)
-
-		msgType = dType_LUT[msgType]
-		self.config['Publishers'][topic] = rospy.Publisher(topic, msgType, queue_size=1)
-
-
-	def parseMsg(self, topic, msgType, timestamp, data=None):
+	def parsePacket(self, packet, ts):
 		"""
 		  Create a new msg to publish.
 
@@ -145,26 +146,32 @@ class SerialAgent:
 			  msg: ??? - the msg to send
 		"""
 		msg = None
-		if msgType == '0':
-			for string in data:
-				msg = String(string)
-				if topic == 'whoami':
-					self.log(f'connecting to: {string} @ timestamp')
-					self.writeBack('1101')
+		for i,topic in enumerate(self.config['State']):
 
-		elif msgType == '1':
-			for fl in data:
-				msg = Float64(float(fl))
+			if topic == 'WHOAMI':
+				self.config['State']['WHOAMI'] = packet[i]	
+				continue
 
-		elif msgType == '2':
-			msg = PoseStamped()
-			msg.header.stamp = timestamp
-			msg.header.frame_id = self.config['WhoAmI']
-			msg.pose.position = Point(float(data[0]), float(data[1]), float(data[2]))
-			q = quaternion_from_euler(float(data[3]), float(data[4]), float(data[5]))
-			msg.pose.orientation = Quaternion(q[0], q[1], q[2], q[3])
-		
-		return msg
+			dt_id = self.config["State"][topic]
+			dtype = dType_LUT[dt_id]
+
+			if dt_id == '0':
+				msg = String(packet[i])	
+
+			if dt_id == '1':
+				msg = Float64(float(packet[i]))
+
+			if dt_id == '2':
+				data = packet[i].split(',')
+				msg = PoseStamped()
+				msg.header.stamp = ts
+				msg.header.frame_id = self.config['State']['WHOAMI']
+				msg.pose.position = Point(float(data[0]), float(data[1]), float(data[2]))
+				q = quaternion_from_euler(float(data[3]), float(data[4]), float(data[5]))
+				msg.pose.orientation = Quaternion(q[0], q[1], q[2], q[3])
+
+			if msg:
+				self.publishers[topic].publish(msg)
 
 	def spin(self):
 		"""
@@ -183,34 +190,13 @@ class SerialAgent:
 					self.tryConnect()
 
 				elif self.device.in_waiting:
-					msg = self.device.readline().decode().rstrip().split(',')
-
-					topic = None
-					msgType = -1
-					timestamp = 0.0
-					msgLen = len(msg)
-
-					if len(msg) > 3:
-						topic = msg[0]
-						msgType = msg[1]
-						timestamp = rospy.Time.from_sec(float(msg[2]))
-						data = msg[3:]
-						
-					if topic is None:
-						continue
-
-					if not topic in self.config['Publishers']:
-						self.initPublisher(topic, msgType)
-
-					pub = self.config['Publishers'][topic]
-					msg = self.parseMsg(topic, msgType, timestamp, msg[3:])
-					pub.publish(msg)
+					packet = self.device.readline().decode().rstrip().split(':')
+					self.parsePacket(packet, rospy.Time.now())
 
 		except Exception as e:
 			traceback.print_exc()
 			self.log(e)
 			self.log('Possible I/O Error: Restarting...')
-			self.device.close()
 			time.sleep(2)
 			self.tryConnect()
 			self.spin()
@@ -218,11 +204,16 @@ class SerialAgent:
 if __name__=='__main__':
 	try:
 		arduino_relay = SerialAgent(sys.argv[1])
+		arduino_relay.log(f'{arduino_relay.config}')
 		arduino_relay.spin()
 
 	except KeyboardInterrupt:
-		rospy.loginfo('[Serial_Reader]: Exiting ...')
+		rospy.loginfo('[Serial_Agent]: Exiting ...')
+		if arduio_relay.device:
+			arduino_relay.device.close()
 
 	except Exception as e:
 		exc_type, exc_value, exc_traceback = sys.exc_info()
 		tb.print_exc()
+		if arduio_relay.device:
+			arduino_relay.device.close()

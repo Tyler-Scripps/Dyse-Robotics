@@ -1,5 +1,3 @@
-WhoAmI:
-  Arduino_IOT_nano_33
 Baudrate:
   9600
 Timeout:
@@ -7,3 +5,18 @@ Timeout:
 Ports:
   - /dev/ttyACM0
   - /dev/ttyACM1
+State:
+  WHOAMI:
+    ''
+  Start: 
+    '1'
+  Duration: 
+    '1'
+  Birthtime: 
+    '1'
+  Velocity:
+    '2'
+  Pose:
+    '2'
+  IMU:
+    '2'

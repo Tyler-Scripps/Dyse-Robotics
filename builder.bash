@@ -30,10 +30,12 @@ helpFunction()
 	echo -e "[$ME]\tUsage and Hints:\n"
 	echo -e "      [Option]\t Description"
 	echo -e "\n\t-e\t specifies the path to the python3 environment for this project"
-	echo -e "\t-n\t decides the name of the python env"
-	echo -e "\t-p\t declares the name of the project (required)"
-	echo -e "\t-o\t specifies file path to load the above parameters from"
+	echo -e "\t-d\t decides the name of the python env"
+	echo -e "\t-n\t specifies the project name"
+	echo -e "\t-c\t specifies the config file to load from"
 	echo -e "\t-b\t will build the project with catkin build (builds whatever package you pass)"
+	echo -e "\t-p\t declares the name of the project (required)"
+	echo -e "\t-i\t tells the program where to install the bin"
 	echo -e "\t-h\t prints this help message (program will exit after)"
 	exit 1 # Exit script after printing help
 }																										
@@ -111,7 +113,7 @@ buildWorkSpace()
 source /opt/ros/noetic/setup.bash
 logInfo "Filling parameter table"
 PARAMS[CONFIG]=""
-while getopts "e:n:p:c:o:b h:" opt;
+while getopts "e:d:n:c:b:p:i:h:" opt;
 do
 	case $opt in
 		e) PARAMS[ENV_PATH]=$OPTARG ;;

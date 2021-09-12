@@ -5,9 +5,13 @@ export DYSE_ROOT=/${HOME}/Dyse-Robotics
 export ROBOT_IP=10.0.0.13 # the default static IP for dyse-robots
 export ROBOT_ROOT=/home/dyse/dyse-robotics
 
+export FW_PORT='/dev/ttyACM0'
+
 #########
 # Aliases
 #########
+
+alias Rufous="catkin clean -y && catkin build rufous && roslaunch rufous main.launch"
 
 alias setupBot="source install/setup.bash && export ROS_MASTER_URI=${ROBOT_IP}"
 alias sshBot="ssh dyse@${ROBOT_IP}"
@@ -26,9 +30,14 @@ setBot(){
 	export ROBOT_IP=$1
 }
 
+setFWPort()
+{
+	export FW_PORT=$1
+}
+
 flashBoard()
 {
-	arduino-cli compile --fqbn $1 ${DYSE_ROOT}/src/Arduino/$2 && arduino-cli upload -p /dev/ttyACM0 --fqbn $1 ${DYSE_ROOT}/src/Arduino/$2
+	arduino-cli compile --fqbn $1 ${DYSE_ROOT}/src/Arduino/$2 && arduino-cli upload -p ${FW_PORT} --fqbn $1 ${DYSE_ROOT}/src/Arduino/$2
 }
 
 flashNano-IOT-33()

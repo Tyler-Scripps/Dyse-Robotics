@@ -9,6 +9,7 @@
 	<arg name="verbose" default="false"/>
 	<arg name="device" default="IOT_nano_33"/>
 	<arg name="description_type" default="xacro"/>
+	
 	<group if="$(arg sim)">
 		<arg name="world_name" default="$(find gazebo_ros)/worlds/empty.world"/>
 	</group>
@@ -44,7 +45,7 @@
 	<include file="$(find rufous_odometry)/launch/main.launch">
 		<arg name="sim" value="$(arg sim)"/>
 		<arg name="rviz" value="$(arg rviz)"/>
-		<arg name="sensor" value="$(arg sensor)"/>
+		<arg name="topic" value="Pose"/>
 		<arg name="parent" value="$(arg parent)"/>
 		<arg name="device" value="$(arg device)"/>
 		<arg name="namespace" value="$(arg model)"/>

@@ -53,7 +53,7 @@
   <depend>rufous_description</depend>
   <depend>rufous_gazebo_plugin</depend>
 
-  <depend>serial_reader</depend>
+  <depend>serial_agent</depend>
 
   <buildtool_depend>catkin</buildtool_depend>
 
