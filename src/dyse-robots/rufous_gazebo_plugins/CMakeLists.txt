@@ -136,7 +136,7 @@ catkin_package(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#	src/${PROJECT_NAME}/rofous_gazebo_plugin.cpp
+#	src/${PROJECT_NAME}/rufous_gazebo_plugin.cpp
 #	src/${PROJECT_NAME}/Aerial_Device.cpp
 #	src/${PROJECT_NAME}/Transformer.cpp
 #	src/${PROJECT_NAME}/Matrix.cpp
@@ -229,7 +229,7 @@ catkin_package(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_rofous_gazebo_plugins.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_rufous_gazebo_plugins.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

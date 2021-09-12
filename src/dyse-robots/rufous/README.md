@@ -9,11 +9,11 @@ The repo is designed to be built inside of the dyse-robotics repo which includes
 
 First clone the repo: 
 
-    git clone https://github.com/mithellscott/Rofous
+    git clone https://github.com/mithellscott/Rufous
 
 Then cd into the project and run the setup script
 
-    cd Rofous
+    cd Rufous
     ./setup.bash 
     	Usage and Hints:
 
@@ -39,7 +39,7 @@ Now your python enviroment is configured and your catkin_ws should be initialize
     
 The simulation is runable with roslaunch
     
-    roslaunch rofous_gazebo main.launch
+    roslaunch rufous main.launch sim:=true
     
     
 You can run the python version with 

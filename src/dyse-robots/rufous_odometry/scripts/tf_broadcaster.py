@@ -24,8 +24,6 @@ class tf_Broadcaster:
 
 		self.sub = rospy.Subscriber(self.sensor, PoseStamped, self.motionCallback)
 
-		self.measurement = np.zeros(6)
-
 	def motionCallback(self, data):
 		pose = data.pose.position
 		q = data.pose.orientation

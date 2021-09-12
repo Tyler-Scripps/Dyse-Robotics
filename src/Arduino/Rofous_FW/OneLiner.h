@@ -16,7 +16,7 @@ class OneLiner
 {
   /*
     OneLiner is a simple class for arduino 
-  that makes writing messages to rofous_ros
+  that makes writing messages to rufous_ros
   clean and easy. These messages are handled
   by the arduino_reader package.
   */

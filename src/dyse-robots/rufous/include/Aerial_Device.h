@@ -1,7 +1,7 @@
 /**
 	Aerial Device class
 	Author  : Mitchell Scott (misc4432@colorado.edu)
-	Project : Rofous
+	Project : Rufous
 	Version : 0.1
 	Date    : January 31, 2020
 **/

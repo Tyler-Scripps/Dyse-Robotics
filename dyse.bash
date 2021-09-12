@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+export DYSE_ROOT=/${HOME}/Dyse-Robotics
+
+export ROBOT_IP=10.0.0.13 # the default static IP for dyse-robots
+export ROBOT_ROOT=/home/dyse/dyse-robotics
+
+#########
+# Aliases
+#########
+
+alias setupBot="source install/setup.bash && export ROS_MASTER_URI=${ROBOT_IP}"
+alias sshBot="ssh dyse@${ROBOT_IP}"
+
 #########
 # Tools
 #########
@@ -12,6 +24,16 @@ aptWrap()
 
 setBot(){
 	export ROBOT_IP=$1
+}
+
+flashBoard()
+{
+	arduino-cli compile --fqbn $1 ${DYSE_ROOT}/src/Arduino/$2 && arduino-cli upload -p /dev/ttyACM0 --fqbn $1 ${DYSE_ROOT}/src/Arduino/$2
+}
+
+flashNano-IOT-33()
+{
+	flashBoard arduino:samd:nano_33_iot $1
 }
 
 ####################
@@ -73,13 +95,5 @@ loadConfig()
 	fi
 }
 
-#########
-# Aliases
-#########
 
-export ROBOT_IP=10.0.0.13 # the default static IP for dyse-robots
-export ROBOT_ROOT=/home/dyse/dyse-robotics
-
-alias setupBot="source install/setup.bash && export ROS_MASTER_URI=${ROBOT_IP}"
-alias sshBot="ssh dyse@${ROBOT_IP}"
 

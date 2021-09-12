@@ -2,7 +2,7 @@
 	Aerial device kinematics class
 	Author : Mitchell Scott
 		- misc4432@colorado.edu
-	Project : Rofous
+	Project : Rufous
 """
 
 import sys

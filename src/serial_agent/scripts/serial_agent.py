@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-	Arduino reader script
+	Arduino reader/writer script
 	Author : Mitchell Scott
 		- misc4432@colorado.edu
-	Project : Rofous
+	Project : Rufous
 """
 import os
 import sys
@@ -25,7 +25,7 @@ dType_LUT = {
 	'2' : PoseStamped
 }
 
-class SerialListener:
+class SerialAgent:
 	def __init__(self, config):
 		"""
 		  A node that listens to an arduino sending one-liners.
@@ -41,6 +41,7 @@ class SerialListener:
 		self.tryConnect()
 
 		rospy.init_node(self.config['WhoAmI'], anonymous=True)
+		self.sub = rospy.subscriber('/serial_out', String, self.writerCallback)
 
 	def loadDevice(self, config):
 		"""
@@ -86,7 +87,6 @@ class SerialListener:
 		except Exception as e:
 			self.log(f'Error Detecting Device at {self.config["Ports"][alt]}')
 			self.log(e)
-			time.sleep(5)
 			self.connected = False
 			if self.nPorts > alt + 1:
 				if self.device:
@@ -99,6 +99,12 @@ class SerialListener:
 		  Write a message back to the arduino
 		"""
 		self.device.write(mesg)
+
+	def writerCallback(self, msg):
+		"""
+		  Callback for writing messages to the arduino
+		"""
+		self.writeBack(msg.data)
 
 	def log(self, text):
 		"""
@@ -211,7 +217,7 @@ class SerialListener:
 
 if __name__=='__main__':
 	try:
-		arduino_relay = SerialListener(sys.argv[1])
+		arduino_relay = SerialAgent(sys.argv[1])
 		arduino_relay.spin()
 
 	except KeyboardInterrupt:

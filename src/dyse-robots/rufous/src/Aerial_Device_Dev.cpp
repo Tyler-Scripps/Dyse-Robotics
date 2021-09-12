@@ -54,17 +54,17 @@ int main(int argc, char** argv)
 									{-2,2,0,0,0,-135}};
 	vector<int> spin = {1, -1, 1, -1};
 
-	Aerial_Device rofous(nProps, mass, max_thrust, drag_coef, config, spin);
+	Aerial_Device rufous(nProps, mass, max_thrust, drag_coef, config, spin);
 
-	if(rofous.get_nProps() != 4)
+	if(rufous.get_nProps() != 4)
 		test.pass = false;
-	test.info = "\tState:\n" + rofous.get_state().as_string();
+	test.info = "\tState:\n" + rufous.get_state().as_string();
 	cout << test_writeup(&test);
 
 	test = {true, "Throttle Set Test", ""};
 	vector<float> check = {9, 9, 9, 9};
-	rofous.set_throttle(check);
-	vector<float> result = rofous.get_throttle();
+	rufous.set_throttle(check);
+	vector<float> result = rufous.get_throttle();
 	validate_vector(result, &test, check);
 	cout << test_writeup(&test);
 
@@ -72,18 +72,18 @@ int main(int argc, char** argv)
 	vector<vector<float>> point = {{0.0, 0.0, 0.0}};
 	Matrix p(point);
 	p.T();
-	rofous.get_joint_pose(-1, &p);
+	rufous.get_joint_pose(-1, &p);
 	test.info = "Pose:\n" + p.as_string();
 	cout << test_writeup(&test);
 	point = {{0.0, 0.0, 0.0}};
 	p.set_matrix(point);
 	p.T();
-	rofous.get_joint_pose(2, &p);
+	rufous.get_joint_pose(2, &p);
 	test.info = "Pose:\n" + p.as_string();
 	cout << test_writeup(&test);
 
 	test = {true, "Fnet update Test", ""};
-	vector<float> Fnet = rofous.get_Fnet();
+	vector<float> Fnet = rufous.get_Fnet();
 	check = {0.0, 0.0, 315.0, 0.0, 0.0, 0.0};
 	validate_vector(Fnet, &test, check);
 	cout << test_writeup(&test);
@@ -92,8 +92,8 @@ int main(int argc, char** argv)
 	Matrix state;
 	for(int i=0; i < 10; i++)
 	{
-		state = rofous.update_odometry(0.05);
-		test.info += "\n\nState{" + to_string(i) + "}:" + rofous.get_state().as_string();
+		state = rufous.update_odometry(0.05);
+		test.info += "\n\nState{" + to_string(i) + "}:" + rufous.get_state().as_string();
 	}
 	cout << test_writeup(&test);
 	cout << "===== End AD Tests =====" << endl;

@@ -2,7 +2,7 @@
 	Unit tests for Transformer
 
 	Author  : Mitchell Scott (misc4432@colorado.edu)
-	Project : Rofous
+	Project : rufous
 	Version : 0.1
 	Date    : January 31, 2020
 

@@ -1,7 +1,7 @@
 #include "OneLiner.h"
 #include <Arduino_LSM6DS3.h>
 
-#define WHOAMI "Rofous_FW"
+#define WHOAMI "Rufous_FW"
 #define CYCLE_TIME 200ul
 
 float vel[6] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -12,12 +12,12 @@ unsigned long start;
 unsigned long duration;
 unsigned long birthTime;
 
+bool isConnected = false;
+
 char writeBack = '0';
 
 OneLiner OL;
 OneLinerMessage nameCard = OL.init("whoami", 0);
-
-bool isConnected = false;
 
 void serialEvent() {
 	/*
@@ -25,8 +25,11 @@ void serialEvent() {
 		but it doesn't ucking work on IOT nano33!!
 				(workaround: call in loop)
 	*/
-	while(Serial.available())
+	if(Serial.available()){
+	
 		writeBack = Serial.read();
+	}
+
 }
 
 void readIMU(float* sensor){
