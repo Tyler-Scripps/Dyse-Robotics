@@ -209,7 +209,7 @@ if __name__=='__main__':
 
 	except KeyboardInterrupt:
 		rospy.loginfo('[Serial_Agent]: Exiting ...')
-		if arduio_relay.device:
+		if arduino_relay.device:
 			arduino_relay.device.close()
 
 	except Exception as e:

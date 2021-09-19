@@ -1,0 +1,5 @@
+dyse-robots/rufous_description
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_description/cmake.lock /home/m_dyse/Dyse-Robotics/devel/./cmake.lock
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_description/share/rufous_description/cmake/rufous_descriptionConfig.cmake /home/m_dyse/Dyse-Robotics/devel/share/rufous_description/cmake/rufous_descriptionConfig.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_description/share/rufous_description/cmake/rufous_descriptionConfig-version.cmake /home/m_dyse/Dyse-Robotics/devel/share/rufous_description/cmake/rufous_descriptionConfig-version.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_description/lib/pkgconfig/rufous_description.pc /home/m_dyse/Dyse-Robotics/devel/lib/pkgconfig/rufous_description.pc

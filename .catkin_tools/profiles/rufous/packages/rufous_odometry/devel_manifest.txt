@@ -1,0 +1,7 @@
+dyse-robots/rufous_odometry
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_odometry/cmake.lock /home/m_dyse/Dyse-Robotics/devel/./cmake.lock
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_odometry/share/rufous_odometry/cmake/rufous_odometryConfig-version.cmake /home/m_dyse/Dyse-Robotics/devel/share/rufous_odometry/cmake/rufous_odometryConfig-version.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_odometry/share/rufous_odometry/cmake/rufous_odometryConfig.cmake /home/m_dyse/Dyse-Robotics/devel/share/rufous_odometry/cmake/rufous_odometryConfig.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_odometry/lib/rufous_odometry/cmake.lock /home/m_dyse/Dyse-Robotics/devel/lib/rufous_odometry/cmake.lock
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_odometry/lib/rufous_odometry/tf_broadcaster.py /home/m_dyse/Dyse-Robotics/devel/lib/rufous_odometry/tf_broadcaster.py
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_odometry/lib/pkgconfig/rufous_odometry.pc /home/m_dyse/Dyse-Robotics/devel/lib/pkgconfig/rufous_odometry.pc
