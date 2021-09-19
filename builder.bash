@@ -81,7 +81,7 @@ buildWorkSpace()
 		if [[ ! -d src ]]; then
 			mkdir src
 		fi
-
+		catkin clean -y
 		catkin config --install --profile ${PARAMS[PROFILE]}
 		if [[ -n ${PARAMS[ENV_PATH]} && -n ${PARAMS[ENV_NAME]} ]]; then
 			catkin config --profile ${PARAMS[PROFILE]} -DPYTHON_EXECUTABLE=${PARAMS[ENV_PATH]}/${PARAMS[ENV_NAME]}/bin/python3
