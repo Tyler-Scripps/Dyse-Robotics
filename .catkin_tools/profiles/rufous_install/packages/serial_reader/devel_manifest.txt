@@ -1,0 +1,7 @@
+serial_reader
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_reader/cmake.lock /home/m_dyse/Dyse-Robotics/devel/./cmake.lock
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_reader/share/serial_reader/cmake/serial_readerConfig.cmake /home/m_dyse/Dyse-Robotics/devel/share/serial_reader/cmake/serial_readerConfig.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_reader/share/serial_reader/cmake/serial_readerConfig-version.cmake /home/m_dyse/Dyse-Robotics/devel/share/serial_reader/cmake/serial_readerConfig-version.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_reader/lib/pkgconfig/serial_reader.pc /home/m_dyse/Dyse-Robotics/devel/lib/pkgconfig/serial_reader.pc
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_reader/lib/serial_reader/cmake.lock /home/m_dyse/Dyse-Robotics/devel/lib/serial_reader/cmake.lock
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_reader/lib/serial_reader/serial_reader.py /home/m_dyse/Dyse-Robotics/devel/lib/serial_reader/serial_reader.py

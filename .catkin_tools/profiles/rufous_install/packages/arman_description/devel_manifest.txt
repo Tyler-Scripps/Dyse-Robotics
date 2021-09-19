@@ -1,0 +1,5 @@
+dyse-robots/arman_description
+/home/m_dyse/Dyse-Robotics/devel/.private/arman_description/cmake.lock /home/m_dyse/Dyse-Robotics/devel/./cmake.lock
+/home/m_dyse/Dyse-Robotics/devel/.private/arman_description/share/arman_description/cmake/arman_descriptionConfig.cmake /home/m_dyse/Dyse-Robotics/devel/share/arman_description/cmake/arman_descriptionConfig.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/arman_description/share/arman_description/cmake/arman_descriptionConfig-version.cmake /home/m_dyse/Dyse-Robotics/devel/share/arman_description/cmake/arman_descriptionConfig-version.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/arman_description/lib/pkgconfig/arman_description.pc /home/m_dyse/Dyse-Robotics/devel/lib/pkgconfig/arman_description.pc

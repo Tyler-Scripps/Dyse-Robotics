@@ -1,0 +1,5 @@
+mpu6050
+/home/m_dyse/Dyse-Robotics/devel/.private/mpu6050/cmake.lock /home/m_dyse/Dyse-Robotics/devel/./cmake.lock
+/home/m_dyse/Dyse-Robotics/devel/.private/mpu6050/share/mpu6050/cmake/mpu6050Config.cmake /home/m_dyse/Dyse-Robotics/devel/share/mpu6050/cmake/mpu6050Config.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/mpu6050/share/mpu6050/cmake/mpu6050Config-version.cmake /home/m_dyse/Dyse-Robotics/devel/share/mpu6050/cmake/mpu6050Config-version.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/mpu6050/lib/pkgconfig/mpu6050.pc /home/m_dyse/Dyse-Robotics/devel/lib/pkgconfig/mpu6050.pc
