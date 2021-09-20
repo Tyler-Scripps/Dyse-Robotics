@@ -2,13 +2,14 @@
 #include <Arduino_LSM6DS3.h>
 
 #define WHOAMI "Rufous_FW"
-#define CYCLE_TIME 200ul
+#define CYCLE_TIME 10ul
 
 float vel[6] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 float pose[6] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+float bias[6] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 float sensor[6] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
-char* throttle[8];
+int throttle[4] = {0, 0, 0, 0};
 
 unsigned long start;
 unsigned long duration;
@@ -28,12 +29,21 @@ void serialEvent() {
 				(workaround: call in loop)
 	*/
 	OP_MODE = Serial.read();
-	if( OP_MODE == 'u' && Serial.available() == 8){
-		Serial.readBytes(throttle[0], 2);
-		Serial.readBytes(throttle[2], 2);
-		Serial.readBytes(throttle[4], 2);
-		Serial.readBytes(throttle[6], 2);
+	if( OP_MODE == 'u' && Serial.available() == 4){
+		throttle[0] = Serial.read();
+		throttle[1] = Serial.read();
+		throttle[2] = Serial.read();
+		throttle[3] = Serial.read();
 	}
+	if( OP_MODE == 'B' && Serial.available() > 6){
+		bias[0] = Serial.parseFloat();
+		bias[1] = Serial.parseFloat();
+		bias[2] = Serial.parseFloat();
+		bias[3] = Serial.parseFloat();
+		bias[4] = Serial.parseFloat();
+		bias[5] = Serial.parseFloat();
+	}
+	OP_MODE = 'Z';
 }
 
 unsigned long dyse_hash(){
@@ -60,25 +70,30 @@ void dumpState(){
 	Serial.print(start); Serial.print(':');
 	Serial.print(duration); Serial.print(':');
 	Serial.print(birthTime); Serial.print(':');
-	Serial.print(vel[0]); Serial.print(',');
-	Serial.print(vel[1]); Serial.print(',');
-	Serial.print(vel[2]); Serial.print(',');
-	Serial.print(vel[3]); Serial.print(',');
-	Serial.print(vel[4]); Serial.print(',');
-	Serial.print(vel[5]); Serial.print(':');
-	Serial.print(pose[0]); Serial.print(',');
-	Serial.print(pose[1]); Serial.print(',');
-	Serial.print(pose[2]); Serial.print(',');
-	Serial.print(pose[3]); Serial.print(',');
-	Serial.print(pose[4]); Serial.print(',');
-	Serial.print(pose[5]); Serial.print(':');
-	Serial.print(sensor[0]); Serial.print(',');
-	Serial.print(sensor[1]); Serial.print(',');
-	Serial.print(sensor[2]); Serial.print(',');
-	Serial.print(sensor[3]); Serial.print(',');
-	Serial.print(sensor[4]); Serial.print(',');
-	Serial.println(sensor[5]);
-	
+	Serial.print(vel[0], 4); Serial.print(',');
+	Serial.print(vel[1], 4); Serial.print(',');
+	Serial.print(vel[2], 4); Serial.print(',');
+	Serial.print(vel[3], 4); Serial.print(',');
+	Serial.print(vel[4], 4); Serial.print(',');
+	Serial.print(vel[5], 4); Serial.print(':');
+	Serial.print(pose[0], 4); Serial.print(',');
+	Serial.print(pose[1], 4); Serial.print(',');
+	Serial.print(pose[2], 4); Serial.print(',');
+	Serial.print(pose[3], 4); Serial.print(',');
+	Serial.print(pose[4], 4); Serial.print(',');
+	Serial.print(pose[5], 4); Serial.print(':');
+	Serial.print(sensor[0], 4); Serial.print(',');
+	Serial.print(sensor[1], 4); Serial.print(',');
+	Serial.print(sensor[2], 4); Serial.print(',');
+	Serial.print(sensor[3], 4); Serial.print(',');
+	Serial.print(sensor[4], 4); Serial.print(',');
+	Serial.print(sensor[5], 4); Serial.print(':');
+	Serial.print(bias[0], 4); Serial.print(',');
+	Serial.print(bias[1], 4); Serial.print(',');
+	Serial.print(bias[2], 4); Serial.print(',');
+	Serial.print(bias[3], 4); Serial.print(',');
+	Serial.print(bias[4], 4); Serial.print(',');
+	Serial.println(bias[5], 4);
 }
 
 void readIMU(float* sensor){
@@ -87,6 +102,15 @@ void readIMU(float* sensor){
 
 	if (IMU.gyroscopeAvailable())
 		IMU.readGyroscope(sensor[3], sensor[4], sensor[5]);
+}
+
+void preProcessSignal(){
+	sensor[0] = sensor[0] - bias[0];
+	sensor[1] = sensor[1] - bias[1];
+	sensor[2] = sensor[2] - bias[2];
+	sensor[3] = sensor[3] - bias[3];
+	sensor[4] = sensor[4] - bias[4];
+	sensor[5] = sensor[5] - bias[5];
 }
 
 void updateOdometry(float* sensor, float* pose){
@@ -110,6 +134,7 @@ void setup() {
 void loop() {
 	start = millis();
 	readIMU(sensor);									// read IMU sensor registers
+	preProcessSignal();
 	updateOdometry(sensor, pose);						// update pose based on measurements
 
 	if(isConnected)
@@ -117,11 +142,14 @@ void loop() {
 	// else
 	// 	Serial.println(WHOAMI);
 
-	if(Serial.available())
+	if(Serial.available() && OP_MODE != 'B'){
 		serialEvent();
+		Serial.flush();
+	}
 
 	if(OP_MODE == 'Z')
 		isConnected = true;
+
 
 	////////		Normalize cycle time		////////
 	duration = millis() - start;

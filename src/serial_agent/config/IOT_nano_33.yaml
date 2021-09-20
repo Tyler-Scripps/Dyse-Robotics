@@ -15,8 +15,10 @@ State:
   Birthtime: 
     '1'
   Velocity:
-    '2'
+    '3'
   Pose:
-    '2'
+    '3'
   IMU:
+    '3'
+  Bias:
     '2'

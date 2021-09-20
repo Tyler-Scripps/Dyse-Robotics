@@ -14,7 +14,7 @@ import serial
 import traceback
 import numpy as np
 import traceback as tb
-from std_msgs.msg import String, Float64
+from std_msgs.msg import String, Float64, Float64MultiArray
 from tf.transformations import quaternion_from_euler
 from geometry_msgs.msg import PoseStamped, Point, Quaternion
 
@@ -22,7 +22,8 @@ from geometry_msgs.msg import PoseStamped, Point, Quaternion
 dType_LUT = {
 	'0' : String,
 	'1' : Float64,
-	'2' : PoseStamped
+	'2' : Float64MultiArray,
+	'3' : PoseStamped
 }
 
 class SerialAgent:
@@ -86,7 +87,6 @@ class SerialAgent:
 
 			self.device = serial.Serial(self.config['Ports'][alt], self.config['Baudrate'], timeout=self.config['Timeout'])
 			self.device.flush()
-			self.log('Device Connected: Reading...')
 			self.connected = True
 
 		except Exception as e:
@@ -95,10 +95,14 @@ class SerialAgent:
 			self.connected = False
 			if self.nPorts > alt + 1:
 				self.tryConnect(alt=alt+1)
+
 		if not self.connected:
 			time.sleep(5)
+		else:
+			self.writeBack(b'Z')
+			self.log('Device Connected: Reading...')
+			self.log(self.config)
 
-		self.writeBack(b'Z')
 		return self.connected
 
 	def initPublishers(self):
@@ -122,7 +126,7 @@ class SerialAgent:
 		"""
 		  Callback for writing messages to the arduino
 		"""
-		self.writeBack(msg.data)
+		self.writeBack(bytes(msg.data, 'utf-8'))
 
 	def log(self, text):
 		"""
@@ -162,6 +166,11 @@ class SerialAgent:
 				msg = Float64(float(packet[i]))
 
 			if dt_id == '2':
+				data = packet[i].split(',')
+				msg = Float64MultiArray()
+				msg.data = [float(x) for x in data]
+
+			if dt_id == '3':
 				data = packet[i].split(',')
 				msg = PoseStamped()
 				msg.header.stamp = ts
@@ -204,7 +213,6 @@ class SerialAgent:
 if __name__=='__main__':
 	try:
 		arduino_relay = SerialAgent(sys.argv[1])
-		arduino_relay.log(f'{arduino_relay.config}')
 		arduino_relay.spin()
 
 	except KeyboardInterrupt:
@@ -215,5 +223,5 @@ if __name__=='__main__':
 	except Exception as e:
 		exc_type, exc_value, exc_traceback = sys.exc_info()
 		tb.print_exc()
-		if arduio_relay.device:
+		if arduino_relay.device:
 			arduino_relay.device.close()
