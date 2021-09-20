@@ -1,0 +1,24 @@
+Baudrate:
+  9600
+Timeout:
+  10
+Ports:
+  - /dev/ttyACM0
+  - /dev/ttyACM1
+State:
+  WHOAMI:
+    ''
+  Start: 
+    '1'
+  Duration: 
+    '1'
+  Birthtime: 
+    '1'
+  Velocity:
+    '3'
+  Pose:
+    '3'
+  IMU:
+    '3'
+  Bias:
+    '2'

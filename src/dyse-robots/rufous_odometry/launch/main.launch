@@ -1,0 +1,35 @@
+<launch>
+	<arg name="rviz" default="true"/>
+	<arg name="sim" default="false"/>
+	<arg name="topic" default="Pose"/>
+	<arg name="parent" default="/arduino"/>
+	<arg name="namespace" default="Rufous"/>
+	<arg name="device" default="IOT_nano_33"/>
+
+	<group ns="$(arg namespace)">
+
+		<node name="odometry" pkg="rufous_odometry" type="tf_broadcaster.py" respawn="false" output="screen"
+			args="$(arg namespace) $(arg parent) $(arg topic)"/>
+
+		<group unless="$(arg sim)">
+			<include file="$(find serial_agent)/launch/main.launch">
+				<arg name="device" value="$(arg device)"/>
+			</include>
+		</group>
+
+	</group>
+
+	<group if="$(arg rviz)">
+
+		<group if="$(arg sim)">
+			<node name="Rviz" pkg="rviz" type="rviz" respawn="false" output="screen"
+				args="-d $(find rufous_description)/config/gazebo.rviz"/>
+		</group>
+
+		<group unless="$(arg sim)">
+			<node name="Rviz" pkg="rviz" type="rviz" respawn="false" output="screen"
+				args="-d $(find rufous_description)/config/realLife.rviz"/>
+		</group>
+		
+	</group>
+</launch>

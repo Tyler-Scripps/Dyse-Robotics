@@ -7,7 +7,7 @@ cmake_args:
 devel_layout: linked
 devel_space: devel
 extend_path: null
-extends: null
+extends: /opt/ros/noetic
 install: true
 install_space: install
 isolate_install: false

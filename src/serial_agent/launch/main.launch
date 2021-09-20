@@ -1,0 +1,7 @@
+<launch>
+	<arg name="device" default="IOT_nano33"/>
+
+	<node name="serial_relay" pkg="serial_agent" type ="serial_agent.py" respawn="false" output="screen"
+		args="$(find serial_agent)/config/$(arg device).yaml"/>
+
+</launch>

@@ -1,0 +1,5 @@
+dyse-robots/rufous_gazebo_plugins
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_gazebo_plugins/cmake.lock /home/m_dyse/Dyse-Robotics/devel/./cmake.lock
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_gazebo_plugins/share/rufous_gazebo_plugins/cmake/rufous_gazebo_pluginsConfig-version.cmake /home/m_dyse/Dyse-Robotics/devel/share/rufous_gazebo_plugins/cmake/rufous_gazebo_pluginsConfig-version.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_gazebo_plugins/share/rufous_gazebo_plugins/cmake/rufous_gazebo_pluginsConfig.cmake /home/m_dyse/Dyse-Robotics/devel/share/rufous_gazebo_plugins/cmake/rufous_gazebo_pluginsConfig.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/rufous_gazebo_plugins/lib/pkgconfig/rufous_gazebo_plugins.pc /home/m_dyse/Dyse-Robotics/devel/lib/pkgconfig/rufous_gazebo_plugins.pc
