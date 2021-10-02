@@ -1,4 +1,0 @@
-GIT_EXT=mitchelldscott/Dyse-Robotics
-PROJECT_NAME=Dyse-Robotics
-DO_BUILD=true
-BUILD=''
