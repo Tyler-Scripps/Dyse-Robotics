@@ -2,7 +2,7 @@
 
 export DYSE_ROOT=/${HOME}/Dyse-Robotics
 
-export ROBOT_IP=10.0.0.13 # the default static IP for dyse-robots
+export ROBOT_IP=10.0.0.9 # the default static IP for dyse-robots
 export ROBOT_ROOT=/home/dyse/dyse-robotics
 
 export FW_PORT='/dev/ttyACM0'
@@ -13,7 +13,9 @@ export FW_PORT='/dev/ttyACM0'
 
 alias Rufous="catkin clean -y && catkin build rufous && roslaunch rufous main.launch"
 
-alias setupBot="source install/setup.bash && export ROS_MASTER_URI=${ROBOT_IP}"
+alias pushKey="ssh-copy-id -i ~/.ssh/id_rsa.pub dyse@${ROBOT_IP}"
+
+alias setupBot="export ROS_IP=10.0.0.13 && export ROS_MASTER_URI=http://${ROBOT_IP} && source install/setup.bash || source devel/setup.bash"
 alias sshBot="ssh dyse@${ROBOT_IP}"
 
 #########

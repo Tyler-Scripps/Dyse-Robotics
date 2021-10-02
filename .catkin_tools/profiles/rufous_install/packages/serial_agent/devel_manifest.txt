@@ -1,0 +1,7 @@
+serial_agent
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_agent/cmake.lock /home/m_dyse/Dyse-Robotics/devel/./cmake.lock
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_agent/share/serial_agent/cmake/serial_agentConfig.cmake /home/m_dyse/Dyse-Robotics/devel/share/serial_agent/cmake/serial_agentConfig.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_agent/share/serial_agent/cmake/serial_agentConfig-version.cmake /home/m_dyse/Dyse-Robotics/devel/share/serial_agent/cmake/serial_agentConfig-version.cmake
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_agent/lib/serial_agent/cmake.lock /home/m_dyse/Dyse-Robotics/devel/lib/serial_agent/cmake.lock
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_agent/lib/serial_agent/serial_agent.py /home/m_dyse/Dyse-Robotics/devel/lib/serial_agent/serial_agent.py
+/home/m_dyse/Dyse-Robotics/devel/.private/serial_agent/lib/pkgconfig/serial_agent.pc /home/m_dyse/Dyse-Robotics/devel/lib/pkgconfig/serial_agent.pc
