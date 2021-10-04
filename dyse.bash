@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
 
-if [[ ${PWD} != *Dyse-Robotics ]]; then
-	echo -e "Please run this script from dyse-robotics root"
+if [[ ${PWD,,} != */dyse-robotics ]]; then
+	if [[ -z ${DYSE_ROOT} ]]; then
+		echo -e "Not in Project Root and the project root variable is unset."
+		return
+	fi
+else
+	export DYSE_ROOT=$(dirname "$(realpath $0)")
 fi
 
-export DYSE_ROOT=${PWD}
 
-export FW_PORT='/dev/ttyACM0'
-export ROBOT_IP=10.0.0.9 # the default static IP for dyse-robots (Rufous)
-export ROBOT_ROOT=/home/dyse/dyse-robotics
-export ROBOT_ADDRESS=dyse@${ROBOT_IP}
+export ROBOT_IP=10.0.0.9 									# the default static IP for dyse-robots (Rufous)
+export FW_PORT='/dev/ttyACM0'								# Default port for arduino
+export ROBOT_ROOT=/home/dyse/dyse-robotics					# The root of deployed code
+export ROBOT_ADDRESS=dyse@${ROBOT_IP}						# address to ssh to an edge device
 
-export PATH=${DYSE_ROOT}/src/dysepy:${PATH}
-export PYTHONPATH=${DYSE_ROOT}/src/dysepy/bin:${PYTHONPATH}
+export PATH=${DYSE_ROOT}/src/dysepy:${PATH}					# Add dysepy to the path
+export PYTHONPATH=${DYSE_ROOT}/src/dysepy/bin:${PYTHONPATH}	# Add dysepy bin to the pythonpath
 
 
 #########

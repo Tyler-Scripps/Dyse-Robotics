@@ -34,7 +34,7 @@ def parseArgs():
 	parser.add_argument('--setBot', 
 		nargs=1,
 		metavar='ROBOT_IP',
-		help='Set the IP of the robot in development')
+		help='Set the IP of the robot in development (broken)')
 	parser.add_argument('--GDrive', 
 		nargs=2,
 		metavar=('ACTION', 'FOLDER_ID'),
